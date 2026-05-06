@@ -1,367 +1,270 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Executive SEO Dashboard | Vlerick MBA Audit</title>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vlerick SEO Strategy Dashboard</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700&display=swap');
-        
-        :root {
-            --vlerick-blue: #003057;
-            --vlerick-gold: #c5a059;
-            --slate-50: #f8fafc;
+      @import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap");
+      body {
+        font-family: "Inter", sans-serif;
+        background-color: #f8fafc;
+        color: #0f172a;
+      }
+      .chart-container {
+        position: relative;
+        width: 100%;
+        max-width: 800px;
+        margin-left: auto;
+        margin-right: auto;
+        height: 350px;
+        max-height: 400px;
+      }
+      @media (max-width: 768px) {
+        .chart-container {
+          height: 250px;
         }
-
-        body {
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            background-color: var(--slate-50);
-            color: #1e293b;
-        }
-
-        .metric-card {
-            background: white;
-            border-radius: 16px;
-            padding: 1.5rem;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
-            border: 1px solid #e2e8f0;
-            transition: transform 0.2s ease;
-        }
-
-        .metric-card:hover {
-            transform: translateY(-2px);
-        }
-
-        .vlerick-gradient {
-            background: linear-gradient(135deg, #003057 0%, #004a87 100%);
-        }
-
-        .status-badge {
-            padding: 4px 12px;
-            border-radius: 9999px;
-            font-size: 0.75rem;
-            font-weight: 600;
-            text-transform: uppercase;
-        }
-
-        .status-high { background-color: #dcfce7; color: #166534; }
-        .status-med { background-color: #fef9c3; color: #854d0e; }
-        .status-low { background-color: #fee2e2; color: #991b1b; }
-
-        .sidebar-item-active {
-            background-color: rgba(197, 160, 89, 0.1);
-            border-left: 4px solid var(--vlerick-gold);
-            color: var(--vlerick-blue);
-        }
-
-        .page-content {
-            display: none;
-        }
-        .page-content.active {
-            display: block;
-        }
+      }
+      .tab-active {
+        background-color: #e2e8f0;
+        border-left: 4px solid #2563eb;
+      }
+      .sidebar-link:hover {
+        background-color: #f1f5f9;
+      }
+      .page-content {
+        display: none;
+      }
+      .page-content.active {
+        display: block;
+      }
     </style>
-</head>
-<body class="min-h-screen">
+  </head>
+  <body>
+    <div class="flex flex-col md:flex-row min-h-screen">
+      <!-- Sidebar -->
+      <aside class="w-full md:w-64 bg-white border-r border-slate-200 p-6">
+        <div class="mb-10 flex items-center gap-3">
+          <div class="w-10 h-10 bg-blue-600 rounded-lg flex items-center justify-center text-white font-bold text-xl">V</div>
+          <h1 class="text-xl font-bold tracking-tight">Vlerick SEO</h1>
+        </div>
+        <nav class="space-y-1">
+          <button onclick="switchPage('overview')" id="nav-overview" class="tab-active sidebar-link w-full text-left px-4 py-3 rounded-lg flex items-center gap-3 font-semibold text-slate-700 transition-colors">
+            <svg class="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v12a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v12a2 2 0 01-2 2h-2a2 2 0 01-2-2V6z"></path></svg>
+            Dashboard
+          </button>
+          <button onclick="switchPage('keywords')" id="nav-keywords" class="sidebar-link w-full text-left px-4 py-3 rounded-lg flex items-center gap-3 font-medium text-slate-500 transition-colors">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 11h.01M7 15h.01M13 7h.01M13 11h.01M13 15h.01M17 7h.01M17 11h.01M17 15h.01M5 21h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+            Keyword List
+          </button>
+          <button onclick="switchPage('strategy')" id="nav-strategy" class="sidebar-link w-full text-left px-4 py-3 rounded-lg flex items-center gap-3 font-medium text-slate-500 transition-colors">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path></svg>
+            SEO Strategy
+          </button>
+        </nav>
+      </aside>
 
-    <!-- Mobile Header -->
-    <div class="lg:hidden bg-vlerick text-white p-4 flex justify-between items-center vlerick-gradient sticky top-0 z-50">
-        <span class="font-bold tracking-tight">VLERICK SEO HUB</span>
-        <button id="menuBtn" class="text-2xl"><i class="fas fa-bars"></i></button>
-    </div>
-
-    <div class="flex">
-        <!-- Sidebar Navigation -->
-        <aside id="sidebar" class="fixed inset-y-0 left-0 z-40 w-64 bg-white border-r border-slate-200 transition-transform -translate-x-full lg:translate-x-0 lg:static lg:block h-screen overflow-y-auto">
-            <div class="p-6 border-b border-slate-100 flex items-center gap-3">
-                <div class="w-8 h-8 bg-vlerick rounded-md flex items-center justify-center text-white font-bold">V</div>
-                <span class="font-bold text-vlerick-blue uppercase tracking-tight">Executive Audit</span>
+      <!-- Main Content -->
+      <main class="flex-1 p-6 md:p-10 overflow-y-auto">
+        
+        <!-- Page 1: Overview -->
+        <div id="page-overview" class="page-content active">
+          <div class="mb-8 flex justify-between items-center">
+            <div>
+              <h2 class="text-3xl font-bold text-slate-900">Dashboard Overview</h2>
+              <p class="text-slate-500 mt-1">SEO performance for Vlerick MBA programs.</p>
             </div>
-            
-            <nav class="flex-1 p-4 space-y-2">
-                <div class="px-4 py-2 text-xs font-semibold text-slate-400 uppercase tracking-wider">Analysis</div>
-                <button onclick="switchPage('dashboard')" class="nav-link w-full flex items-center gap-3 px-4 py-3 rounded-lg sidebar-item-active" data-page="dashboard">
-                    <span class="w-2 h-2 rounded-full bg-vlerick-gold"></span> Executive Dashboard
-                </button>
-                <button onclick="switchPage('keywords')" class="nav-link w-full flex items-center gap-3 px-4 py-3 rounded-lg text-slate-600 hover:bg-slate-50" data-page="keywords">
-                    <span class="w-2 h-2 rounded-full bg-slate-300"></span> Keyword Map
-                </button>
-                <button onclick="switchPage('competitors')" class="nav-link w-full flex items-center gap-3 px-4 py-3 rounded-lg text-slate-600 hover:bg-slate-50" data-page="competitors">
-                    <span class="w-2 h-2 rounded-full bg-slate-300"></span> Competitor Gaps
-                </button>
-                
-                <div class="pt-8 px-4 py-2 text-xs font-semibold text-slate-400 uppercase tracking-wider">Reports</div>
-                <button onclick="switchPage('content')" class="nav-link w-full flex items-center gap-3 px-4 py-3 rounded-lg text-slate-600 hover:bg-slate-50" data-page="content">
-                    <span class="w-2 h-2 rounded-full bg-slate-300"></span> Content Strategy
-                </button>
-                <button onclick="switchPage('backlinks')" class="nav-link w-full flex items-center gap-3 px-4 py-3 rounded-lg text-slate-600 hover:bg-slate-50" data-page="backlinks">
-                    <span class="w-2 h-2 rounded-full bg-slate-300"></span> Backlink Audit
-                </button>
-            </nav>
-
-            <div class="p-4 border-t border-slate-100">
-                <div class="bg-slate-50 rounded-lg p-4 text-xs">
-                    <p class="font-semibold mb-1 text-slate-700">Project: MBA Opleidingen</p>
-                    <p class="text-slate-500 italic">Target: Senior Executives</p>
-                </div>
+            <div class="text-right">
+              <span class="text-sm font-semibold bg-green-100 text-green-700 px-3 py-1 rounded-full">Live Data</span>
             </div>
-        </aside>
+          </div>
 
-        <!-- Overlay for mobile sidebar -->
-        <div id="sidebarOverlay" class="fixed inset-0 bg-black/50 z-30 hidden lg:hidden"></div>
-
-        <!-- Main Content -->
-        <main class="flex-1 p-6 lg:p-10 max-w-7xl mx-auto w-full">
-            
-            <!-- Dashboard Content -->
-            <div id="page-dashboard" class="page-content active">
-                <header class="mb-10 flex flex-col md:flex-row md:items-end justify-between gap-4">
-                    <div>
-                        <h1 class="text-3xl font-bold text-slate-900">SEO Strategy Overview</h1>
-                        <p class="text-slate-500 mt-1">Vlerick Business School | MBA Programs Hub</p>
-                    </div>
-                    <div class="flex gap-3">
-                        <button class="bg-white border border-slate-200 px-4 py-2 rounded-lg text-sm font-semibold hover:bg-slate-50 transition">Export CSV</button>
-                        <button class="bg-vlerick text-white px-4 py-2 rounded-lg text-sm font-semibold vlerick-gradient hover:opacity-90 transition">Sync Data</button>
-                    </div>
-                </header>
-
-                <!-- Metric Row -->
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
-                    <div class="metric-card">
-                        <p class="text-sm font-medium text-slate-500">Avg. Keyword Position</p>
-                        <div class="flex items-end justify-between mt-2">
-                            <span class="text-3xl font-bold">1.2</span>
-                            <span class="text-green-500 text-sm font-semibold"><i class="fas fa-caret-up"></i> Stability</span>
-                        </div>
-                    </div>
-                    <div class="metric-card">
-                        <p class="text-sm font-medium text-slate-500">Est. Monthly Visits</p>
-                        <div class="flex items-end justify-between mt-2">
-                            <span class="text-3xl font-bold">840+</span>
-                            <span class="text-slate-400 text-sm font-semibold">Core MBA</span>
-                        </div>
-                    </div>
-                    <div class="metric-card">
-                        <p class="text-sm font-medium text-slate-500">Market Difficulty</p>
-                        <div class="flex items-end justify-between mt-2">
-                            <span class="text-3xl font-bold text-vlerick-gold">Medium</span>
-                            <span class="text-slate-400 text-sm font-semibold">BE Focus</span>
-                        </div>
-                    </div>
-                    <div class="metric-card">
-                        <p class="text-sm font-medium text-slate-500">Conv. Potential</p>
-                        <div class="flex items-end justify-between mt-2">
-                            <span class="text-3xl font-bold">High</span>
-                            <span class="text-blue-500 text-sm font-semibold underline cursor-pointer">Gaps</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="grid lg:grid-cols-3 gap-8 mb-10">
-                    <!-- Visual Map -->
-                    <div class="lg:col-span-2 metric-card">
-                        <div class="flex items-center justify-between mb-6">
-                            <h3 class="font-bold text-lg">Opportunity Analysis</h3>
-                            <div class="text-xs text-slate-400">Vol vs. Difficulty</div>
-                        </div>
-                        <div class="h-80 relative">
-                            <canvas id="opportunityChart"></canvas>
-                        </div>
-                    </div>
-
-                    <!-- Strategic Priority List -->
-                    <div class="metric-card flex flex-col">
-                        <h3 class="font-bold text-lg mb-4">Strategic Quick Wins</h3>
-                        <div class="space-y-4 flex-1">
-                            <div class="p-3 bg-blue-50 rounded-lg border-l-4 border-blue-500">
-                                <p class="text-sm font-bold text-blue-900">"Executive Management MBA"</p>
-                                <p class="text-xs text-blue-700 mt-1">Optimize H1 for intent.</p>
-                            </div>
-                            <div class="p-3 bg-amber-50 rounded-lg border-l-4 border-amber-500">
-                                <p class="text-sm font-bold text-amber-900">"MBA Opleiding"</p>
-                                <p class="text-xs text-amber-700 mt-1">Create separate NL/EN sub-headers.</p>
-                            </div>
-                            <div class="p-3 bg-green-50 rounded-lg border-l-4 border-green-500">
-                                <p class="text-sm font-bold text-green-900">Alumni ROI Snippets</p>
-                                <p class="text-xs text-green-700 mt-1">Capture "Zero-click" searches.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Detailed Keyword Table -->
-                <div class="metric-card overflow-hidden">
-                    <div class="flex items-center justify-between mb-6">
-                        <h3 class="font-bold text-lg">Keyword Analysis</h3>
-                    </div>
-                    <div class="overflow-x-auto">
-                        <table class="w-full text-left text-sm">
-                            <thead>
-                                <tr class="text-slate-400 border-b border-slate-100">
-                                    <th class="pb-4 font-semibold uppercase tracking-wider">Keyword</th>
-                                    <th class="pb-4 font-semibold uppercase tracking-wider text-center">Volume</th>
-                                    <th class="pb-4 font-semibold uppercase tracking-wider text-center">Difficulty</th>
-                                    <th class="pb-4 font-semibold uppercase tracking-wider text-center">Visits</th>
-                                    <th class="pb-4 font-semibold uppercase tracking-wider">Action</th>
-                                </tr>
-                            </thead>
-                            <tbody id="keywordTableBody" class="divide-y divide-slate-50"></tbody>
-                        </table>
-                    </div>
-                </div>
+          <!-- Summary Stats -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
+            <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100">
+              <p class="text-slate-500 text-sm font-medium">Core Volume</p>
+              <h3 class="text-2xl font-bold mt-2">1,260</h3>
+              <p class="text-blue-600 text-xs font-semibold mt-2">Target Segments</p>
             </div>
-
-            <!-- Generic Placeholder for other pages -->
-            <div id="page-placeholder" class="page-content py-20 text-center">
-                <div class="w-20 h-20 bg-slate-100 rounded-full flex items-center justify-center mx-auto mb-6 text-slate-400">
-                    <i class="fas fa-tools text-3xl"></i>
-                </div>
-                <h2 class="text-2xl font-bold text-slate-800" id="placeholder-title">Section Under Construction</h2>
-                <p class="text-slate-500 mt-2">The <span id="placeholder-name" class="font-bold"></span> analysis is currently being synchronized from our data providers.</p>
-                <button onclick="switchPage('dashboard')" class="mt-8 text-vlerick-blue font-bold hover:underline">Return to Dashboard</button>
+            <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100">
+              <p class="text-slate-500 text-sm font-medium">Avg. SEO Difficulty</p>
+              <h3 class="text-2xl font-bold mt-2">38.4</h3>
+              <p class="text-amber-600 text-xs font-semibold mt-2">Moderate Competition</p>
             </div>
+            <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100">
+              <p class="text-slate-500 text-sm font-medium">Dominant Position</p>
+              <h3 class="text-2xl font-bold mt-2">#1</h3>
+              <p class="text-green-600 text-xs font-semibold mt-2">Vlerick.com Home</p>
+            </div>
+            <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100">
+              <p class="text-slate-500 text-sm font-medium">Est. Monthly Traffic</p>
+              <h3 class="text-2xl font-bold mt-2">564</h3>
+              <p class="text-blue-600 text-xs font-semibold mt-2">Organic Search</p>
+            </div>
+          </div>
 
-        </main>
+          <!-- Chart Section -->
+          <div class="bg-white p-8 rounded-2xl shadow-sm border border-slate-100 mb-10">
+            <h3 class="text-xl font-bold mb-6">Volume Distribution</h3>
+            <div class="chart-container">
+              <canvas id="volumeChart"></canvas>
+            </div>
+          </div>
+        </div>
+
+        <!-- Page 2: Keyword List -->
+        <div id="page-keywords" class="page-content">
+          <h2 class="text-3xl font-bold text-slate-900 mb-8">Keyword Audit</h2>
+          <div class="bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden">
+            <table class="w-full text-left border-collapse">
+              <thead>
+                <tr class="bg-slate-50 border-b border-slate-100">
+                  <th class="px-6 py-4 text-slate-600 font-semibold text-sm">Keyword</th>
+                  <th class="px-6 py-4 text-slate-600 font-semibold text-sm text-center">Volume</th>
+                  <th class="px-6 py-4 text-slate-600 font-semibold text-sm text-center">Diff</th>
+                  <th class="px-6 py-4 text-slate-600 font-semibold text-sm text-center">Traffic</th>
+                  <th class="px-6 py-4 text-slate-600 font-semibold text-sm">Action</th>
+                </tr>
+              </thead>
+              <tbody id="keywordTableBody">
+                <!-- JS populated -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Page 3: Strategy -->
+        <div id="page-strategy" class="page-content">
+          <h2 class="text-3xl font-bold text-slate-900 mb-8">Content Strategy</h2>
+          <div class="grid md:grid-cols-2 gap-8">
+            <div class="bg-white p-8 rounded-2xl shadow-sm border border-slate-100">
+              <h3 class="text-xl font-bold mb-4 text-blue-700">Quick Wins</h3>
+              <ul class="space-y-4">
+                <li class="flex items-start gap-3">
+                  <div class="mt-1 text-green-500">✔</div>
+                  <p class="text-slate-600 text-sm"><strong>MBA Opleiding:</strong> Optimize meta-tags for Dutch intent parity.</p>
+                </li>
+                <li class="flex items-start gap-3">
+                  <div class="mt-1 text-green-500">✔</div>
+                  <p class="text-slate-600 text-sm"><strong>EMBA Focus:</strong> Consolidate ranking URL "Executive MBA" with degree keywords.</p>
+                </li>
+              </ul>
+            </div>
+            <div class="bg-white p-8 rounded-2xl shadow-sm border border-slate-100">
+              <h3 class="text-xl font-bold mb-4 text-amber-700">Competitor Gaps</h3>
+              <ul class="space-y-4">
+                <li class="flex items-start gap-3">
+                  <div class="mt-1 text-amber-500">!</div>
+                  <p class="text-slate-600 text-sm">Capture leadership training traffic by creating a dedicated "Skills of the Future" pillar page.</p>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+      </main>
     </div>
 
     <script>
-        const keywordData = [
-            { kw: "executive management mba", vol: 140, diff: 50, visits: 67, action: "Protect #1" },
-            { kw: "opleiding mba", vol: 140, diff: 30, visits: 61, action: "Link NL" },
-            { kw: "leadership training", vol: 140, diff: 34, visits: 62, action: "Broaden" },
-            { kw: "executive mba degree", vol: 140, diff: 48, visits: 66, action: "Use 'Degree'" },
-            { kw: "management school", vol: 90, diff: 25, visits: 40, action: "Authority" },
-            { kw: "executive education", vol: 110, diff: 55, visits: 32, action: "Targeting" }
-        ];
+      const keywordData = [
+        { keyword: "executive management mba", vol: 140, diff: 50, traffic: 67, status: "Protect" },
+        { keyword: "opleiding people management", vol: 140, diff: 37, traffic: 67, status: "High Intent" },
+        { keyword: "executive mba degree", vol: 140, diff: 48, traffic: 66, status: "Action Required" },
+        { keyword: "leadership training", vol: 140, diff: 34, traffic: 62, status: "Growth" },
+        { keyword: "mba opleiding", vol: 140, diff: 30, traffic: 61, status: "Dutch Core" },
+        { keyword: "management school", vol: 90, diff: 25, traffic: 40, status: "Brand Power" },
+      ];
 
-        let chartInstance = null;
+      function switchPage(pageId) {
+        // Update UI Tabs
+        const navs = ['overview', 'keywords', 'strategy'];
+        navs.forEach(id => {
+          const btn = document.getElementById(`nav-${id}`);
+          const content = document.getElementById(`page-${id}`);
+          if(id === pageId) {
+            btn.classList.add('tab-active', 'font-semibold', 'text-slate-700');
+            btn.classList.remove('text-slate-500', 'font-medium');
+            content.classList.add('active');
+          } else {
+            btn.classList.remove('tab-active', 'font-semibold', 'text-slate-700');
+            btn.classList.add('text-slate-500', 'font-medium');
+            content.classList.remove('active');
+          }
+        });
 
-        function populateTable() {
-            const tbody = document.getElementById('keywordTableBody');
-            tbody.innerHTML = '';
-            keywordData.forEach(item => {
-                const statusClass = item.diff > 45 ? 'status-low' : (item.diff > 30 ? 'status-med' : 'status-high');
-                const diffText = item.diff > 45 ? 'Hard' : (item.diff > 30 ? 'Med' : 'Easy');
-                
-                const tr = document.createElement('tr');
-                tr.innerHTML = `
-                    <td class="py-4 font-semibold text-slate-700">${item.kw}</td>
-                    <td class="py-4 text-center text-slate-500">${item.vol}</td>
-                    <td class="py-4 text-center">
-                        <span class="status-badge ${statusClass}">${item.diff}</span>
-                    </td>
-                    <td class="py-4 text-center font-bold text-vlerick-blue">${item.visits}</td>
-                    <td class="py-4">
-                        <span class="text-xs bg-slate-100 px-2 py-1 rounded text-slate-600">${item.action}</span>
-                    </td>
+        if(pageId === 'overview') initCharts();
+        if(pageId === 'keywords') populateTable();
+      }
+
+      function populateTable() {
+        const tbody = document.getElementById("keywordTableBody");
+        tbody.innerHTML = "";
+        keywordData.forEach((item) => {
+          const diffColor = item.diff > 45 ? "text-red-600" : (item.diff > 30 ? "text-amber-600" : "text-green-600");
+          const row = document.createElement("tr");
+          row.className = "border-b border-slate-50 hover:bg-slate-50 transition-colors";
+          row.innerHTML = `
+                    <td class="px-6 py-4 text-sm font-semibold text-slate-700">${item.keyword}</td>
+                    <td class="px-6 py-4 text-sm text-slate-600 text-center">${item.vol}</td>
+                    <td class="px-6 py-4 text-sm font-bold text-center ${diffColor}">${item.diff}</td>
+                    <td class="px-6 py-4 text-sm font-bold text-blue-600 text-center">${item.traffic}</td>
+                    <td class="px-6 py-4 text-xs font-semibold text-slate-500 uppercase tracking-wider">${item.status}</td>
                 `;
-                tbody.appendChild(tr);
-            });
-        }
+          tbody.appendChild(row);
+        });
+      }
 
-        function initChart() {
-            const canvas = document.getElementById('opportunityChart');
-            if (!canvas) return;
-            const ctx = canvas.getContext('2d');
-            
-            if (chartInstance) chartInstance.destroy();
+      let chartInstance = null;
+      function initCharts() {
+        const ctx = document.getElementById("volumeChart");
+        if (!ctx) return;
+        
+        if (chartInstance) chartInstance.destroy();
 
-            chartInstance = new Chart(ctx, {
-                type: 'bubble',
-                data: {
-                    datasets: [{
-                        label: 'Keywords',
-                        data: keywordData.map(item => ({
-                            x: item.diff,
-                            y: item.vol,
-                            r: item.visits / 4
-                        })),
-                        backgroundColor: '#c5a05988',
-                        borderColor: '#c5a059',
-                        borderWidth: 2
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    scales: {
-                        x: { 
-                            title: { display: true, text: 'Difficulty', font: { size: 10 } },
-                            min: 20, max: 60 
-                        },
-                        y: { 
-                            title: { display: true, text: 'Volume', font: { size: 10 } },
-                            min: 80, max: 160 
-                        }
-                    },
-                    plugins: {
-                        legend: { display: false }
-                    }
-                }
-            });
-        }
+        chartInstance = new Chart(ctx, {
+          type: "bar",
+          data: {
+            labels: keywordData.map((d) => d.keyword),
+            datasets: [
+              {
+                label: "Volume",
+                data: keywordData.map((d) => d.vol),
+                backgroundColor: "#2563eb",
+                borderRadius: 6,
+                barThickness: 24,
+              },
+            ],
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+              legend: { display: false },
+              tooltip: {
+                backgroundColor: "#0f172a",
+                padding: 12,
+                cornerRadius: 8,
+              },
+            },
+            scales: {
+              y: { 
+                beginAtZero: true, 
+                grid: { color: "#e2e8f0", drawBorder: false } 
+              },
+              x: { 
+                grid: { display: false },
+                ticks: { font: { size: 10 } }
+              },
+            },
+          },
+        });
+      }
 
-        // Navigation Logic
-        function switchPage(pageId) {
-            // Update Navigation UI
-            document.querySelectorAll('.nav-link').forEach(link => {
-                const isActive = link.getAttribute('data-page') === pageId;
-                link.classList.toggle('sidebar-item-active', isActive);
-                link.classList.toggle('text-slate-600', !isActive);
-                const dot = link.querySelector('span');
-                if (dot) {
-                    dot.classList.toggle('bg-vlerick-gold', isActive);
-                    dot.classList.toggle('bg-slate-300', !isActive);
-                }
-            });
-
-            // Handle Page Content
-            const dashboardPage = document.getElementById('page-dashboard');
-            const placeholderPage = document.getElementById('page-placeholder');
-            
-            if (pageId === 'dashboard') {
-                dashboardPage.classList.add('active');
-                placeholderPage.classList.remove('active');
-                initChart(); // Redraw chart for dashboard
-            } else {
-                dashboardPage.classList.remove('active');
-                placeholderPage.classList.add('active');
-                document.getElementById('placeholder-name').innerText = pageId.charAt(0).toUpperCase() + pageId.slice(1);
-                document.getElementById('placeholder-title').innerText = `${pageId.charAt(0).toUpperCase() + pageId.slice(1)} Module`;
-            }
-
-            // Close mobile menu if open
-            if (window.innerWidth < 1024) {
-                toggleSidebar(false);
-            }
-        }
-
-        // Sidebar Toggle for Mobile
-        const menuBtn = document.getElementById('menuBtn');
-        const sidebar = document.getElementById('sidebar');
-        const overlay = document.getElementById('sidebarOverlay');
-
-        function toggleSidebar(show) {
-            if (show) {
-                sidebar.classList.remove('-translate-x-full');
-                overlay.classList.remove('hidden');
-            } else {
-                sidebar.classList.add('-translate-x-full');
-                overlay.classList.add('hidden');
-            }
-        }
-
-        menuBtn.addEventListener('click', () => toggleSidebar(true));
-        overlay.addEventListener('click', () => toggleSidebar(false));
-
-        window.onload = () => {
-            populateTable();
-            initChart();
-        };
+      document.addEventListener("DOMContentLoaded", () => {
+        initCharts();
+      });
     </script>
-</body>
+  </body>
 </html>
