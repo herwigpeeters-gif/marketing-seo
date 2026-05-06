@@ -1,691 +1,102 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vlerick SEO Strategy Dashboard</title>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SEO Project Hub | Vlerick Business School</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
-      @import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap");
-      body {
-        font-family: "Inter", sans-serif;
-        background-color: #f8fafc;
-        color: #0f172a;
-      }
-      .chart-container {
-        position: relative;
-        width: 100%;
-        max-width: 800px;
-        margin-left: auto;
-        margin-right: auto;
-        height: 350px;
-        max-height: 400px;
-      }
-      @media (max-width: 768px) {
-        .chart-container {
-          height: 250px;
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700&display=swap');
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #ffffff;
+            background-image: radial-gradient(#e2e8f0 0.5px, transparent 0.5px);
+            background-size: 24px 24px;
         }
-      }
-      .tab-active {
-        background-color: #e2e8f0;
-        border-left: 4px solid #2563eb;
-        font-weight: 600;
-      }
-      .cluster-card {
-        transition:
-          transform 0.2s ease,
-          box-shadow 0.2s ease;
-      }
-      .cluster-card:hover {
-        transform: translateY(-4px);
-        box-shadow:
-          0 10px 15px -3px rgba(0, 0, 0, 0.1),
-          0 4px 6px -2px rgba(0, 0, 0, 0.05);
-      }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(226, 232, 240, 0.8);
+        }
     </style>
-  </head>
-  <body class="flex h-screen overflow-hidden">
-    <!-- Chosen Palette: Slate/Blue/Gray - Minimalistic and professional, reflecting a B2B corporate dashboard. Background: Slate-50 (#f8fafc), Text: Slate-900 (#0f172a), Accents: Blue-600 (#2563eb). -->
+</head>
+<body class="min-h-screen flex flex-col items-center justify-center p-6">
 
-    <!-- Application Structure Plan: The SPA is structured as a professional marketing dashboard. A left sidebar provides persistent navigation. The main content area uses view-switching (tabs) to break down the SEO audit into logical phases: Overview (Executive Summary), Performance Data (Quantitative Keyword Metrics), Content Strategy (Thematic Clusters), and Execution (Technical & Content Gaps). This linear but freely explorable structure allows stakeholders to quickly grasp high-level strategy or drill down into specific keyword metrics without scrolling through a long, static document. -->
-
+    <!-- Chosen Palette: White & Royal Blue. Background: Subtle dot grid on white. Accents: Indigo-600. -->
+    
+    <!-- Application Structure Plan: This is a lightweight portal (Lander). It is designed to host links to the main SEO dashboard and other team resources (CSV files, notes, external reports). The layout uses a centralized "Hub" approach so teammates don't have to remember complex file names in the GitHub repo. -->
+    
     <!-- Visualization & Content Choices: 
-         1. Top Keywords (Data) -> Goal: Compare metrics -> Viz: Chart.js Bar Chart & HTML Table -> Justification: Bar charts effectively compare estimated visits across the top defending keywords. A supplementary table provides exact figures for analytical users.
-         2. Topical Clusters (Qualitative) -> Goal: Organize content strategy -> Viz: Interactive Grid Cards -> Justification: Cards group related keywords and goals clearly, making abstract content pillars tangible.
-         3. Optimization Plan (Text/Process) -> Goal: Inform execution steps -> Viz: Clean list/blocks with toggles -> Justification: Separates technical tasks from content opportunities for easier delegation. 
-         Library: Chart.js used for data visualization. -->
+         - Feature Card -> Goal: Primary Navigation -> Links to the SEO Dashboard.
+         - Resource Grid -> Goal: Secondary Navigation -> Links to source CSV and GitHub Repository.
+         - Status Badge -> Goal: Inform -> Shows project phase. 
+         - Confirmation: No SVG/Mermaid used. -->
 
     <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
 
-    <aside
-      class="w-64 bg-white border-r border-slate-200 flex flex-col hidden md:flex"
-    >
-      <div class="p-6 border-b border-slate-200">
-        <h1 class="text-xl font-bold text-blue-700 tracking-tight">
-          SEO Audit Pro
-        </h1>
-        <p class="text-xs text-slate-500 mt-1">Vlerick MBA Strategy</p>
-      </div>
-      <nav class="flex-1 py-4">
-        <ul class="space-y-1">
-          <li>
-            <button
-              onclick="navigate('overview')"
-              id="nav-overview"
-              class="w-full text-left px-6 py-3 tab-active text-slate-700 hover:bg-slate-50 transition-colors flex items-center gap-3"
-            >
-              <span class="text-lg">&#128203;</span> Executive Summary
-            </button>
-          </li>
-          <li>
-            <button
-              onclick="navigate('performance')"
-              id="nav-performance"
-              class="w-full text-left px-6 py-3 text-slate-700 hover:bg-slate-50 transition-colors flex items-center gap-3"
-            >
-              <span class="text-lg">&#128202;</span> Keyword Data
-            </button>
-          </li>
-          <li>
-            <button
-              onclick="navigate('strategy')"
-              id="nav-strategy"
-              class="w-full text-left px-6 py-3 text-slate-700 hover:bg-slate-50 transition-colors flex items-center gap-3"
-            >
-              <span class="text-lg">&#127919;</span> Content Strategy
-            </button>
-          </li>
-          <li>
-            <button
-              onclick="navigate('action')"
-              id="nav-action"
-              class="w-full text-left px-6 py-3 text-slate-700 hover:bg-slate-50 transition-colors flex items-center gap-3"
-            >
-              <span class="text-lg">&#9881;</span> Action Plan
-            </button>
-          </li>
-        </ul>
-      </nav>
-      <div class="p-4 bg-slate-50 border-t border-slate-200">
-        <div class="text-xs text-slate-500">
-          <strong>Target URL:</strong><br />
-          <a
-            href="https://www.vlerick.com/nl/opleidingen/mba-opleidingen/"
-            class="text-blue-600 hover:underline truncate block w-full"
-            target="_blank"
-            >vlerick.com/.../mba-opleidingen/</a
-          >
-        </div>
-      </div>
-    </aside>
-
-    <main class="flex-1 overflow-y-auto bg-slate-50 p-4 md:p-8">
-      <div
-        class="md:hidden mb-4 bg-white p-4 rounded-lg shadow-sm border border-slate-200 flex justify-between items-center"
-      >
-        <h1 class="text-lg font-bold text-blue-700">SEO Audit Pro</h1>
-        <select
-          onchange="navigate(this.value)"
-          class="p-2 border rounded text-sm bg-slate-50"
-        >
-          <option value="overview">Executive Summary</option>
-          <option value="performance">Keyword Data</option>
-          <option value="strategy">Content Strategy</option>
-          <option value="action">Action Plan</option>
-        </select>
-      </div>
-
-      <div id="view-overview" class="view-section block animate-fade-in">
-        <div class="max-w-4xl mx-auto">
-          <h2 class="text-3xl font-bold mb-6">Strategic SEO Overview</h2>
-          <p class="text-lg text-slate-600 mb-8 leading-relaxed">
-            Welcome to the interactive SEO strategy dashboard for Vlerick
-            Business School's MBA programs. This section outlines the high-level
-            competitive landscape and strategic direction required to capture
-            our core demographic.
-          </p>
-
-          <div
-            class="bg-white p-6 rounded-xl shadow-sm border border-slate-200 mb-8"
-          >
-            <h3 class="text-xl font-bold mb-4 flex items-center gap-2">
-              <span>&#128101;</span> Target Audience
-            </h3>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-              <div class="bg-blue-50 p-4 rounded-lg border border-blue-100">
-                <h4 class="font-bold text-blue-800">Executives</h4>
-                <p class="text-sm text-slate-600 mt-1">
-                  Seeking global prestige, networking, and personal career
-                  acceleration.
-                </p>
-              </div>
-              <div class="bg-blue-50 p-4 rounded-lg border border-blue-100">
-                <h4 class="font-bold text-blue-800">Advanced Professionals</h4>
-                <p class="text-sm text-slate-600 mt-1">
-                  Looking for flexible learning formats (Online, Part-time) to
-                  balance work.
-                </p>
-              </div>
-              <div class="bg-blue-50 p-4 rounded-lg border border-blue-100">
-                <h4 class="font-bold text-blue-800">HR Decision Makers</h4>
-                <p class="text-sm text-slate-600 mt-1">
-                  Evaluating ROI and sponsorship benefits for corporate talent
-                  retention.
-                </p>
-              </div>
+    <div class="max-w-3xl w-full text-center">
+        <!-- Header Section -->
+        <div class="mb-12">
+            <div class="inline-block px-4 py-1.5 mb-4 text-xs font-bold tracking-widest text-indigo-600 uppercase bg-indigo-50 rounded-full">
+                Internal SEO Project Hub
             </div>
-          </div>
-
-          <div
-            class="bg-white p-6 rounded-xl shadow-sm border border-slate-200"
-          >
-            <h3 class="text-xl font-bold mb-4 flex items-center gap-2">
-              <span>&#128640;</span> The Primary Challenge
-            </h3>
-            <p class="text-slate-700 leading-relaxed">
-              Vlerick currently holds dominant positions (Rank #1) for
-              high-value English and Dutch keywords. The primary challenge is
-              <strong
-                >maintaining this authority against global competitors</strong
-              >
-              while actively capturing the "Commercial Investigation" intent of
-              senior leaders who are comparing ROI, program flexibility, and
-              institutional prestige.
+            <h1 class="text-4xl md:text-5xl font-extrabold text-slate-900 tracking-tight mb-4">
+                Vlerick MBA Strategy
+            </h1>
+            <p class="text-lg text-slate-500 max-w-xl mx-auto">
+                Centralized access point for SEO audits, keyword research, and optimization strategies for the MBA program.
             </p>
-            <button
-              onclick="navigate('performance')"
-              class="mt-6 bg-blue-600 text-white px-6 py-2 rounded shadow hover:bg-blue-700 transition-colors"
-            >
-              View Defending Keywords &#8594;
-            </button>
-          </div>
         </div>
-      </div>
 
-      <div id="view-performance" class="view-section hidden animate-fade-in">
-        <div class="max-w-5xl mx-auto">
-          <h2 class="text-3xl font-bold mb-2">Keyword Performance Data</h2>
-          <p class="text-slate-600 mb-8">
-            Analyze the top-performing "Defensive Keywords" where Vlerick
-            currently ranks #1. These terms drive the highest estimated traffic
-            and must be protected through continuous content updates.
-          </p>
-
-          <div
-            class="bg-white p-6 rounded-xl shadow-sm border border-slate-200 mb-8"
-          >
-            <h3 class="text-lg font-bold mb-4 text-center">
-              Estimated Monthly Visits from Top Rank #1 Keywords
-            </h3>
-            <div class="chart-container">
-              <canvas id="keywordChart"></canvas>
-            </div>
-          </div>
-
-          <div
-            class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden"
-          >
-            <table class="w-full text-left border-collapse">
-              <thead>
-                <tr
-                  class="bg-slate-100 text-slate-600 border-b border-slate-200 text-sm"
-                >
-                  <th class="p-4 font-semibold">Keyword</th>
-                  <th class="p-4 font-semibold">Volume</th>
-                  <th class="p-4 font-semibold">Current Position</th>
-                  <th class="p-4 font-semibold">Est. Monthly Visits</th>
-                </tr>
-              </thead>
-              <tbody id="keywordTableBody"></tbody>
-            </table>
-          </div>
-        </div>
-      </div>
-
-      <div id="view-strategy" class="view-section hidden animate-fade-in">
-        <div class="max-w-5xl mx-auto">
-          <h2 class="text-3xl font-bold mb-2">Content Strategy & Clusters</h2>
-          <p class="text-slate-600 mb-8">
-            To build topical authority that satisfies both Google and AI search
-            engines, our content strategy is segmented into three distinct
-            pillars targeting specific executive needs.
-          </p>
-
-          <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
-            <div
-              class="bg-white p-6 rounded-xl shadow-sm border border-slate-200 cluster-card cursor-pointer border-t-4 border-t-blue-500"
-            >
-              <div class="text-3xl mb-3">&#129309;</div>
-              <h3 class="text-xl font-bold mb-2">
-                Cluster 1: Leadership & People
-              </h3>
-              <p class="text-sm text-slate-600 mb-4 h-16">
-                Establish Vlerick as the leader in "soft skills" and
-                "human-centric" management.
-              </p>
-              <div
-                class="bg-slate-50 p-3 rounded text-sm font-mono text-slate-700"
-              >
-                people management opleiding, leadership training, leading
-                digital transformation
-              </div>
-            </div>
-
-            <div
-              class="bg-white p-6 rounded-xl shadow-sm border border-slate-200 cluster-card cursor-pointer border-t-4 border-t-green-500"
-            >
-              <div class="text-3xl mb-3">&#128200;</div>
-              <h3 class="text-xl font-bold mb-2">
-                Cluster 2: Career Impact & ROI
-              </h3>
-              <p class="text-sm text-slate-600 mb-4 h-16">
-                Provide hard evidence of the value of the investment to
-                decision-makers.
-              </p>
-              <div
-                class="bg-slate-50 p-3 rounded text-sm font-mono text-slate-700"
-              >
-                MBA salary increase, executive networking, alumni success
-                stories
-              </div>
-            </div>
-
-            <div
-              class="bg-white p-6 rounded-xl shadow-sm border border-slate-200 cluster-card cursor-pointer border-t-4 border-t-purple-500"
-            >
-              <div class="text-3xl mb-3">&#8986;</div>
-              <h3 class="text-xl font-bold mb-2">
-                Cluster 3: Program Flexibility
-              </h3>
-              <p class="text-sm text-slate-600 mb-4 h-16">
-                Address the logistical barriers to entry for busy working
-                professionals.
-              </p>
-              <div
-                class="bg-slate-50 p-3 rounded text-sm font-mono text-slate-700"
-              >
-                Online MBA for executives, part-time MBA structure, modular
-                learning
-              </div>
-            </div>
-          </div>
-
-          <div
-            class="bg-white p-6 rounded-xl shadow-sm border border-slate-200"
-          >
-            <h3 class="text-xl font-bold mb-4">Target Keyword Tiers</h3>
-
-            <div class="mb-4">
-              <button
-                onclick="toggleTier('head-terms')"
-                class="w-full text-left font-bold text-lg p-3 bg-slate-100 rounded hover:bg-slate-200 flex justify-between items-center"
-              >
-                A. Primary Target Keywords (Head Terms)
-                <span>&#9660;</span>
-              </button>
-              <div
-                id="head-terms"
-                class="p-4 border border-t-0 border-slate-200 rounded-b hidden"
-              >
-                <ul class="list-disc pl-5 space-y-2 text-slate-700">
-                  <li>
-                    <strong>Executive MBA Belgium:</strong> Targets geographical
-                    intent for local executives.
-                  </li>
-                  <li>
-                    <strong>Triple-Accredited MBA:</strong> Targets
-                    professionals looking for the "gold standard" in business
-                    education.
-                  </li>
-                  <li>
-                    <strong>Global MBA for Professionals:</strong> Positions the
-                    program as an international career accelerator.
-                  </li>
-                </ul>
-              </div>
-            </div>
-
-            <div>
-              <button
-                onclick="toggleTier('long-tail')"
-                class="w-full text-left font-bold text-lg p-3 bg-slate-100 rounded hover:bg-slate-200 flex justify-between items-center"
-              >
-                B. Long-Tail & High-Conversion Keywords
-                <span>&#9660;</span>
-              </button>
-              <div
-                id="long-tail"
-                class="p-4 border border-t-0 border-slate-200 rounded-b hidden"
-              >
-                <ul class="list-disc pl-5 space-y-2 text-slate-700">
-                  <li>
-                    <strong>Executive MBA for working professionals:</strong>
-                    Targets the need for work-life balance.
-                  </li>
-                  <li>
-                    <strong>ROI of MBA for senior managers:</strong> Captures
-                    those in the final justification stage of the funnel.
-                  </li>
-                  <li>
-                    <strong
-                      >Part-time MBA for corporate leadership tracks:</strong
-                    >
-                    Specifically targets HR leaders and talent managers.
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div id="view-action" class="view-section hidden animate-fade-in">
-        <div class="max-w-4xl mx-auto">
-          <h2 class="text-3xl font-bold mb-2">Execution & Action Plan</h2>
-          <p class="text-slate-600 mb-8">
-            Specific on-page, structural, and content creation tasks required to
-            execute the strategy and satisfy Google's EEAT requirements.
-          </p>
-
-          <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            <div
-              class="bg-white p-6 rounded-xl shadow-sm border border-slate-200"
-            >
-              <h3
-                class="text-xl font-bold mb-4 border-b pb-2 flex items-center gap-2"
-              >
-                <span>&#128187;</span> On-Page SEO Mapping
-              </h3>
-              <div class="space-y-4 text-sm">
-                <div>
-                  <span
-                    class="font-bold text-slate-500 uppercase text-xs block mb-1"
-                    >H1 Header</span
-                  >
-                  <code
-                    class="bg-slate-100 px-2 py-1 rounded block whitespace-normal text-blue-800"
-                    >MBA-opleidingen voor ambitieuze professionals &
-                    executives</code
-                  >
+        <!-- Main Action Card -->
+        <div class="glass-card p-8 rounded-3xl shadow-xl shadow-slate-200/50 mb-8 transition-all hover:shadow-2xl hover:shadow-indigo-100 group">
+            <div class="flex flex-col md:flex-row items-center gap-8 text-left">
+                <div class="h-24 w-24 bg-indigo-600 rounded-2xl flex items-center justify-center text-4xl shadow-lg shadow-indigo-200 shrink-0 group-hover:scale-110 transition-transform">
+                    <span class="filter drop-shadow-md">&#128202;</span>
                 </div>
-                <div>
-                  <span
-                    class="font-bold text-slate-500 uppercase text-xs block mb-1"
-                    >Meta Description</span
-                  >
-                  <code
-                    class="bg-slate-100 px-2 py-1 rounded block whitespace-normal text-blue-800"
-                    >Versnel je carrière met de triple-accredited
-                    MBA-opleidingen van Vlerick Business School. Ontdek onze
-                    Executive, Full-time en Online programma's ontworpen voor
-                    maximaal resultaat.</code
-                  >
+                <div class="flex-1">
+                    <h2 class="text-2xl font-bold text-slate-800 mb-2">Interactive Strategy Dashboard</h2>
+                    <p class="text-slate-600 mb-6 leading-relaxed">
+                        The primary interactive report visualizing keyword performance, content clusters, and the technical action plan for 2024-2025.
+                    </p>
+                    <a href="vlerick_seo_dashboard.html" class="inline-flex items-center justify-center px-8 py-3 font-bold text-white transition-all duration-200 bg-indigo-600 rounded-xl hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-600">
+                        Launch Dashboard &#8594;
+                    </a>
                 </div>
-                <div>
-                  <span
-                    class="font-bold text-slate-500 uppercase text-xs block mb-1"
-                    >Schema Markup</span
-                  >
-                  <p class="text-slate-700">
-                    Implement
-                    <code class="bg-slate-100 px-1 rounded">Course</code> and
-                    <code class="bg-slate-100 px-1 rounded"
-                      >EducationalOrganization</code
-                    >
-                    schema to gain rich snippets.
-                  </p>
-                </div>
-              </div>
             </div>
-
-            <div
-              class="bg-white p-6 rounded-xl shadow-sm border border-slate-200"
-            >
-              <h3
-                class="text-xl font-bold mb-4 border-b pb-2 flex items-center gap-2"
-              >
-                <span>&#127942;</span> EEAT Requirements
-              </h3>
-              <p class="text-sm text-slate-600 mb-4">
-                Because MBA programs are high-cost (YMYL - Your Money Your
-                Life), prioritize:
-              </p>
-              <ul class="space-y-3">
-                <li class="flex items-start gap-3">
-                  <span class="text-green-500 mt-1">&#10004;</span>
-                  <div>
-                    <strong class="block text-slate-800"
-                      >Faculty Expertise</strong
-                    >
-                    <span class="text-sm text-slate-600"
-                      >Links to published research from professors.</span
-                    >
-                  </div>
-                </li>
-                <li class="flex items-start gap-3">
-                  <span class="text-green-500 mt-1">&#10004;</span>
-                  <div>
-                    <strong class="block text-slate-800"
-                      >Alumni Evidence</strong
-                    >
-                    <span class="text-sm text-slate-600"
-                      >In-depth case studies of graduates in C-suite
-                      positions.</span
-                    >
-                  </div>
-                </li>
-                <li class="flex items-start gap-3">
-                  <span class="text-green-500 mt-1">&#10004;</span>
-                  <div>
-                    <strong class="block text-slate-800"
-                      >Accreditation Visibility</strong
-                    >
-                    <span class="text-sm text-slate-600"
-                      >Ensure Equis, AMBA, and AACSB logos are prominent.</span
-                    >
-                  </div>
-                </li>
-              </ul>
-            </div>
-          </div>
-
-          <div class="mt-6 bg-blue-50 border border-blue-200 p-6 rounded-xl">
-            <h3
-              class="text-xl font-bold text-blue-900 mb-3 flex items-center gap-2"
-            >
-              <span>&#128161;</span> Identified Content Gaps
-            </h3>
-            <div class="space-y-4">
-              <div class="bg-white p-4 rounded border border-blue-100">
-                <h4 class="font-bold text-blue-800 mb-1">
-                  1. The "HR Leader" Persona
-                </h4>
-                <p class="text-sm text-slate-700">
-                  Create content specifically for HR Directors on "How to
-                  Sponsor an Executive's MBA." This captures the B2B
-                  decision-maker who holds the budget.
-                </p>
-              </div>
-              <div class="bg-white p-4 rounded border border-blue-100">
-                <h4 class="font-bold text-blue-800 mb-1">
-                  2. AI Discovery Optimization
-                </h4>
-                <p class="text-sm text-slate-700">
-                  Answer specific questions in text (e.g., "What is the
-                  difference between an MBA and an Executive MBA at Vlerick?")
-                  to capture voice search and AI summary snippets.
-                </p>
-              </div>
-            </div>
-          </div>
         </div>
-      </div>
-    </main>
 
-    <script>
-      const appState = {
-        currentView: "overview",
-      };
+        <!-- Secondary Resources Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <a href="https://github.com" target="_blank" class="glass-card p-6 rounded-2xl flex items-center gap-4 hover:bg-slate-50 transition-all">
+                <div class="h-12 w-12 bg-slate-100 rounded-lg flex items-center justify-center text-xl text-slate-600">
+                    &#128194;
+                </div>
+                <div class="text-left">
+                    <h3 class="font-bold text-slate-800">Source Files</h3>
+                    <p class="text-xs text-slate-500">View raw CSVs & Data</p>
+                </div>
+            </a>
 
-      const keywordData = [
-        {
-          keyword: "executive management mba",
-          volume: 140,
-          pos: 1,
-          visits: 67,
-        },
-        {
-          keyword: "opleiding people management",
-          volume: 140,
-          pos: 1,
-          visits: 67,
-        },
-        { keyword: "executive mba degree", volume: 140, pos: 1, visits: 66 },
-        { keyword: "leadership training", volume: 140, pos: 1, visits: 62 },
-        { keyword: "mba opleiding", volume: 140, pos: 1, visits: 61 },
-      ];
+            <div class="glass-card p-6 rounded-2xl flex items-center gap-4">
+                <div class="h-12 w-12 bg-green-50 rounded-lg flex items-center justify-center text-xl text-green-600">
+                    &#9989;
+                </div>
+                <div class="text-left">
+                    <h3 class="font-bold text-slate-800">Project Status</h3>
+                    <p class="text-xs text-slate-500 font-medium text-green-600 uppercase">Phase 1 Complete</p>
+                </div>
+            </div>
+        </div>
 
-      function navigate(viewId) {
-        document
-          .querySelectorAll(".view-section")
-          .forEach((el) => el.classList.add("hidden"));
+        <!-- Footer -->
+        <footer class="mt-16 pt-8 border-t border-slate-200">
+            <p class="text-sm text-slate-400">
+                &copy; 2024 Vlerick SEO Marketing Team. <br class="md:hidden"> 
+                Confidential - Internal Use Only.
+            </p>
+        </footer>
+    </div>
 
-        const targetView = document.getElementById("view-" + viewId);
-        if (targetView) {
-          targetView.classList.remove("hidden");
-        }
-
-        document.querySelectorAll("nav button").forEach((btn) => {
-          btn.classList.remove("tab-active");
-          btn.classList.replace("text-blue-700", "text-slate-700");
-        });
-
-        const activeBtn = document.getElementById("nav-" + viewId);
-        if (activeBtn) {
-          activeBtn.classList.add("tab-active");
-          activeBtn.classList.replace("text-slate-700", "text-blue-700");
-        }
-
-        appState.currentView = viewId;
-
-        if (viewId === "performance" && !window.myChartInstance) {
-          initChart();
-        }
-      }
-
-      function toggleTier(id) {
-        const el = document.getElementById(id);
-        if (el.classList.contains("hidden")) {
-          el.classList.remove("hidden");
-        } else {
-          el.classList.add("hidden");
-        }
-      }
-
-      function populateTable() {
-        const tbody = document.getElementById("keywordTableBody");
-        let html = "";
-        keywordData.forEach((row, index) => {
-          const bgClass = index % 2 === 0 ? "bg-white" : "bg-slate-50";
-          html += `
-                    <tr class="${bgClass} border-b border-slate-100 hover:bg-blue-50 transition-colors">
-                        <td class="p-4 font-medium text-slate-800">${row.keyword}</td>
-                        <td class="p-4 text-slate-600">${row.volume}</td>
-                        <td class="p-4">
-                            <span class="inline-block bg-green-100 text-green-800 text-xs px-2 py-1 rounded font-bold">
-                                #${row.pos}
-                            </span>
-                        </td>
-                        <td class="p-4 font-bold text-blue-600">${row.visits}</td>
-                    </tr>
-                `;
-        });
-        tbody.innerHTML = html;
-      }
-
-      function initChart() {
-        const ctx = document.getElementById("keywordChart").getContext("2d");
-
-        const labels = keywordData.map((d) => {
-          const words = d.keyword.split(" ");
-          if (words.length > 2) {
-            return words.slice(0, 2).join(" ") + "...";
-          }
-          return d.keyword;
-        });
-
-        const data = keywordData.map((d) => d.visits);
-
-        window.myChartInstance = new Chart(ctx, {
-          type: "bar",
-          data: {
-            labels: labels,
-            datasets: [
-              {
-                label: "Estimated Monthly Visits",
-                data: data,
-                backgroundColor: "#3b82f6",
-                hoverBackgroundColor: "#2563eb",
-                borderRadius: 4,
-                barThickness: "flex",
-                maxBarThickness: 50,
-              },
-            ],
-          },
-          options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            plugins: {
-              legend: {
-                display: false,
-              },
-              tooltip: {
-                callbacks: {
-                  title: function (context) {
-                    return keywordData[context[0].dataIndex].keyword;
-                  },
-                },
-                backgroundColor: "#0f172a",
-                titleFont: { size: 14, family: "Inter" },
-                bodyFont: { size: 13, family: "Inter" },
-                padding: 12,
-                cornerRadius: 8,
-              },
-            },
-            scales: {
-              y: {
-                beginAtZero: true,
-                min: 50,
-                grid: {
-                  color: "#e2e8f0",
-                  drawBorder: false,
-                },
-                ticks: {
-                  font: { family: "Inter" },
-                  color: "#64748b",
-                },
-              },
-              x: {
-                grid: {
-                  display: false,
-                  drawBorder: false,
-                },
-                ticks: {
-                  font: { family: "Inter" },
-                  color: "#64748b",
-                  maxRotation: 45,
-                  minRotation: 45,
-                },
-              },
-            },
-          },
-        });
-      }
-
-      document.addEventListener("DOMContentLoaded", () => {
-        populateTable();
-      });
-    </script>
-  </body>
+</body>
 </html>
