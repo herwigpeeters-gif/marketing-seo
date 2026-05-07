@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AMS Executive MBA SEO Dashboard</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: { inter: ['Inter', 'sans-serif'] },
+          colors: { slateBg: '#f8fafc', ink: '#0f172a', accent: '#2563eb' }
+        }
+      }
+    }
+  </script>
+  <style>
+    body { font-family: 'Inter', sans-serif; background:#f8fafc; color:#0f172a; }
+    .tab-panel { display:none; }
+    .tab-panel.active { display:block; }
+    .tab-button.active { border-left-color:#2563eb; font-weight:700; color:#0f172a; background:#eff6ff; }
+    .card { background:white; border:1px solid #e2e8f0; border-radius:1rem; box-shadow:0 10px 20px rgba(15,23,42,.04); }
+    .pill { display:inline-flex; align-items:center; border-radius:999px; padding:.2rem .55rem; font-size:.75rem; font-weight:600; }
+    table { width:100%; border-collapse:collapse; }
+    th { text-align:left; font-size:.75rem; color:#475569; text-transform:uppercase; letter-spacing:.04em; background:#f8fafc; }
+    th, td { padding:.75rem; border-bottom:1px solid #e2e8f0; vertical-align:top; }
+    td { font-size:.875rem; }
+  </style>
+</head>
+<body>
+  <script>
+    const topPages = [{"No": 1, "Title": "MBA-programma's - Opleidingen", "URL": "http://www.vlerick.com/nl/opleidingen/mba-opleidingen/", "Est. Visits": 1316, "Backlinks": 193, "Facebook Shares": 0, "Pinterest Shares": 0, "Reddit Shares": 0}, {"No": 2, "Title": "Managementopleidingen", "URL": "http://www.vlerick.com/nl/opleidingen/managementopleidingen/", "Est. Visits": 747, "Backlinks": 3, "Facebook Shares": 0, "Pinterest Shares": 0, "Reddit Shares": 0}, {"No": 3, "Title": "Executive MBA", "URL": "http://www.vlerick.com/en/programmes/mba-programmes/executive-mba/", "Est. Visits": 321, "Backlinks": 30, "Facebook Shares": 0, "Pinterest Shares": 0, "Reddit Shares": 0}, {"No": 4, "Title": "Opleidingen in People Management & Leiderschap", "URL": "http://www.vlerick.com/nl/opleidingen/opleidingen-in-people-management-leiderschap/", "Est. Visits": 298, "Backlinks": 100, "Facebook Shares": 0, "Pinterest Shares": 0, "Reddit Shares": 0}, {"No": 5, "Title": "Opleidingen in Human Resource Management", "URL": "http://www.vlerick.com/nl/opleidingen/opleidingen-in-human-resource-management/", "Est. Visits": 111, "Backlinks": 91, "Facebook Shares": 0, "Pinterest Shares": 0, "Reddit Shares": 0}, {"No": 6, "Title": "Wat is een MBA?", "URL": "http://www.vlerick.com/nl/inzichten/wat-is-een-mba/", "Est. Visits": 80, "Backlinks": 0, "Facebook Shares": 0, "Pinterest Shares": 0, "Reddit Shares": 0}, {"No": 7, "Title": "Programmes in People Management & Leadership", "URL": "http://www.vlerick.com/en/programmes/programmes-in-people-management-leadership/", "Est. Visits": 70, "Backlinks": 0, "Facebook Shares": 0, "Pinterest Shares": 0, "Reddit Shares": 0}];
+    const competitorKeywords = [{"No": 1, "Keywords": "executive management mba", "Volume": 140, "Position": 1, "Est. Visits": 67, "SEO Difficulty": 50, "Ranking URL": "http://vlerick.com/en/programmes/mba-programmes/executive-mba/"}, {"No": 2, "Keywords": "opleiding people management", "Volume": 140, "Position": 1, "Est. Visits": 67, "SEO Difficulty": 37, "Ranking URL": "http://vlerick.com/nl/opleidingen/opleidingen-in-people-management-leiderschap/"}, {"No": 3, "Keywords": "people management opleiding", "Volume": 140, "Position": 1, "Est. Visits": 67, "SEO Difficulty": 14, "Ranking URL": "http://vlerick.com/nl/opleidingen/opleidingen-in-people-management-leiderschap/"}, {"No": 4, "Keywords": "executive mba degree", "Volume": 140, "Position": 1, "Est. Visits": 66, "SEO Difficulty": 48, "Ranking URL": "http://vlerick.com/en/programmes/mba-programmes/executive-mba/"}, {"No": 5, "Keywords": "leadership training", "Volume": 140, "Position": 1, "Est. Visits": 62, "SEO Difficulty": 34, "Ranking URL": "http://vlerick.com/en/programmes/programmes-in-people-management-leadership/"}, {"No": 6, "Keywords": "executive mba", "Volume": 140, "Position": 1, "Est. Visits": 61, "SEO Difficulty": 47, "Ranking URL": "http://vlerick.com/en/programmes/mba-programmes/executive-mba/"}, {"No": 7, "Keywords": "opleidingen leiderschap", "Volume": 140, "Position": 1, "Est. Visits": 61, "SEO Difficulty": 36, "Ranking URL": "http://vlerick.com/nl/opleidingen/opleidingen-in-people-management-leiderschap/"}, {"No": 8, "Keywords": "mba opleiding", "Volume": 140, "Position": 1, "Est. Visits": 61, "SEO Difficulty": 30, "Ranking URL": "http://vlerick.com/nl/opleidingen/mba-opleidingen/"}, {"No": 9, "Keywords": "opleiding mba", "Volume": 140, "Position": 1, "Est. Visits": 60, "SEO Difficulty": 29, "Ranking URL": "http://vlerick.com/nl/opleidingen/mba-opleidingen/"}, {"No": 10, "Keywords": "mba betekenis", "Volume": 140, "Position": 1, "Est. Visits": 60, "SEO Difficulty": 15, "Ranking URL": "http://vlerick.com/nl/inzichten/wat-is-een-mba/"}];
+    const amsTracking = [{"No": 1, "Position": "24", "Keyword": "masterclass", "Change": "-10", "SD": 44, "Search Volume": 1900, "URL": "https://www.antwerpmanagementschool.be/nl/programma/masterclass-mens-en-organisatie", "Location": "Dutch / Belgium"}, {"No": 2, "Position": "34", "Keyword": "scholarship", "Change": "-8", "SD": 67, "Search Volume": 1600, "URL": "https://www.antwerpmanagementschool.be/en/scholarships-ua", "Location": "Dutch / Belgium"}, {"No": 3, "Position": "12", "Keyword": "master of business administration", "Change": "-7", "SD": 36, "Search Volume": 320, "URL": "https://www.antwerpmanagementschool.be/en/program/executive-mba", "Location": "Dutch / Belgium"}, {"No": 4, "Position": "5", "Keyword": "opleiding change management", "Change": "-2", "SD": 10, "Search Volume": 320, "URL": "https://www.antwerpmanagementschool.be/nl/programma/changemanagement", "Location": "Dutch / Belgium"}, {"No": 5, "Position": "5", "Keyword": "change management opleiding", "Change": "-2", "SD": 12, "Search Volume": 320, "URL": "https://www.antwerpmanagementschool.be/nl/programma/changemanagement", "Location": "Dutch / Belgium"}, {"No": 6, "Position": "2", "Keyword": "master in finance", "Change": "-1", "SD": 44, "Search Volume": 210, "URL": "https://www.antwerpmanagementschool.be/en/program/master-finance-investments", "Location": "Dutch / Belgium"}, {"No": 7, "Position": "8", "Keyword": "opleiding manager", "Change": "-1", "SD": 22, "Search Volume": 390, "URL": "https://www.antwerpmanagementschool.be/nl/programma/opleidingen-voor-ervaren-professionals", "Location": "Dutch / Belgium"}, {"No": 8, "Position": "6", "Keyword": "masters business administration", "Change": "-1", "SD": 47, "Search Volume": 2400, "URL": "https://www.antwerpmanagementschool.be/en/program/executive-mba", "Location": "Dutch / Belgium"}, {"No": 9, "Position": "4", "Keyword": "management opleiding", "Change": "0", "SD": 15, "Search Volume": 390, "URL": "https://www.antwerpmanagementschool.be/nl/programma/opleidingen-voor-ervaren-professionals", "Location": "Dutch / Belgium"}, {"No": 10, "Position": "1", "Keyword": "executive master", "Change": "0", "SD": 28, "Search Volume": 170, "URL": "https://www.antwerpmanagementschool.be/nl/programma/executive-mba", "Location": "Dutch / Belgium"}, {"No": 11, "Position": "2", "Keyword": "executive mba", "Change": "0", "SD": 47, "Search Volume": 140, "URL": "https://www.antwerpmanagementschool.be/en/program/executive-mba", "Location": "Dutch / Belgium"}, {"No": 12, "Position": "5", "Keyword": "master cybersecurity", "Change": "0", "SD": 31, "Search Volume": 260, "URL": "https://www.antwerpmanagementschool.be/nl/programma/master-class-cyber-security-management", "Location": "Dutch / Belgium"}, {"No": 13, "Position": "4", "Keyword": "business school", "Change": "0", "SD": 61, "Search Volume": 590, "URL": "https://www.antwerpmanagementschool.be/nl", "Location": "Dutch / Belgium"}, {"No": 14, "Position": "5", "Keyword": "master of business administration mba", "Change": "0", "SD": 39, "Search Volume": 320, "URL": "https://www.antwerpmanagementschool.be/en/program/executive-mba", "Location": "Dutch / Belgium"}, {"No": 15, "Position": "4", "Keyword": "mba", "Change": "1", "SD": 44, "Search Volume": 2400, "URL": "https://www.antwerpmanagementschool.be/nl/programma/executive-mba", "Location": "Dutch / Belgium"}, {"No": 16, "Position": "4", "Keyword": "business schools in belgium", "Change": "2", "SD": 32, "Search Volume": 110, "URL": "https://www.antwerpmanagementschool.be/en", "Location": "Dutch / Belgium"}, {"No": 17, "Position": "61", "Keyword": "human resources", "Change": "2", "SD": 38, "Search Volume": 1900, "URL": "https://www.antwerpmanagementschool.be/en/insights?topic=human-resources", "Location": "Dutch / Belgium"}, {"No": 18, "Position": "4", "Keyword": "hr masters", "Change": "2", "SD": 20, "Search Volume": 260, "URL": "https://www.antwerpmanagementschool.be/nl/programma/human-resources", "Location": "Dutch / Belgium"}, {"No": 19, "Position": "4", "Keyword": "master class", "Change": "5", "SD": 41, "Search Volume": 210, "URL": "https://www.antwerpmanagementschool.be/nl/programma/master-class-leiderschap-in-onderwijs", "Location": "Dutch / Belgium"}, {"No": 20, "Position": "4", "Keyword": "master degree management", "Change": "6", "SD": 37, "Search Volume": 260, "URL": "https://www.antwerpmanagementschool.be/en/program/master-management", "Location": "Dutch / Belgium"}, {"No": 21, "Position": "2", "Keyword": "master human resources", "Change": "6", "SD": 30, "Search Volume": 260, "URL": "https://www.antwerpmanagementschool.be/en/program/human-resources", "Location": "Dutch / Belgium"}, {"No": 22, "Position": "Not ranked", "Keyword": "antwerp university", "Change": "-", "SD": 44, "Search Volume": 880, "URL": "102", "Location": "Dutch / Belgium"}, {"No": 23, "Position": "Not ranked", "Keyword": "maritime", "Change": "-", "SD": 41, "Search Volume": 1000, "URL": "102", "Location": "Dutch / Belgium"}, {"No": 24, "Position": "Not ranked", "Keyword": "inzichten", "Change": "-", "SD": 35, "Search Volume": 1900, "URL": "102", "Location": "Dutch / Belgium"}, {"No": 25, "Position": "Not ranked", "Keyword": "hrm", "Change": "-", "SD": 29, "Search Volume": 1300, "URL": "102", "Location": "Dutch / Belgium"}];
+    const aiPrompts = ["What are the best executive education programs for senior managers?", "Where can I find executive education programs with a focus on leadership development?", "Which companies offer executive education with a global business perspective?", "What executive education programs include networking opportunities with industry leaders?", "What are the most reputable executive education programs for career advancement?"];
+    const keywordGaps = [{"No": 1, "Keywords": "executive management mba", "Volume": 140, "Position": 1, "Est. Visits": 67, "SEO Difficulty": 50, "Ranking URL": "http://vlerick.com/en/programmes/mba-programmes/executive-mba/"}, {"No": 2, "Keywords": "opleiding people management", "Volume": 140, "Position": 1, "Est. Visits": 67, "SEO Difficulty": 37, "Ranking URL": "http://vlerick.com/nl/opleidingen/opleidingen-in-people-management-leiderschap/"}, {"No": 3, "Keywords": "people management opleiding", "Volume": 140, "Position": 1, "Est. Visits": 67, "SEO Difficulty": 14, "Ranking URL": "http://vlerick.com/nl/opleidingen/opleidingen-in-people-management-leiderschap/"}, {"No": 4, "Keywords": "executive mba degree", "Volume": 140, "Position": 1, "Est. Visits": 66, "SEO Difficulty": 48, "Ranking URL": "http://vlerick.com/en/programmes/mba-programmes/executive-mba/"}, {"No": 5, "Keywords": "leadership training", "Volume": 140, "Position": 1, "Est. Visits": 62, "SEO Difficulty": 34, "Ranking URL": "http://vlerick.com/en/programmes/programmes-in-people-management-leadership/"}, {"No": 7, "Keywords": "opleidingen leiderschap", "Volume": 140, "Position": 1, "Est. Visits": 61, "SEO Difficulty": 36, "Ranking URL": "http://vlerick.com/nl/opleidingen/opleidingen-in-people-management-leiderschap/"}, {"No": 8, "Keywords": "mba opleiding", "Volume": 140, "Position": 1, "Est. Visits": 61, "SEO Difficulty": 30, "Ranking URL": "http://vlerick.com/nl/opleidingen/mba-opleidingen/"}, {"No": 9, "Keywords": "opleiding mba", "Volume": 140, "Position": 1, "Est. Visits": 60, "SEO Difficulty": 29, "Ranking URL": "http://vlerick.com/nl/opleidingen/mba-opleidingen/"}, {"No": 10, "Keywords": "mba betekenis", "Volume": 140, "Position": 1, "Est. Visits": 60, "SEO Difficulty": 15, "Ranking URL": "http://vlerick.com/nl/inzichten/wat-is-een-mba/"}];
+    const atRisk = [{"No": 1, "Position": "24", "Keyword": "masterclass", "Change": "-10", "SD": 44, "Search Volume": 1900, "URL": "https://www.antwerpmanagementschool.be/nl/programma/masterclass-mens-en-organisatie", "Location": "Dutch / Belgium"}, {"No": 2, "Position": "34", "Keyword": "scholarship", "Change": "-8", "SD": 67, "Search Volume": 1600, "URL": "https://www.antwerpmanagementschool.be/en/scholarships-ua", "Location": "Dutch / Belgium"}, {"No": 3, "Position": "12", "Keyword": "master of business administration", "Change": "-7", "SD": 36, "Search Volume": 320, "URL": "https://www.antwerpmanagementschool.be/en/program/executive-mba", "Location": "Dutch / Belgium"}, {"No": 4, "Position": "5", "Keyword": "opleiding change management", "Change": "-2", "SD": 10, "Search Volume": 320, "URL": "https://www.antwerpmanagementschool.be/nl/programma/changemanagement", "Location": "Dutch / Belgium"}, {"No": 5, "Position": "5", "Keyword": "change management opleiding", "Change": "-2", "SD": 12, "Search Volume": 320, "URL": "https://www.antwerpmanagementschool.be/nl/programma/changemanagement", "Location": "Dutch / Belgium"}, {"No": 6, "Position": "2", "Keyword": "master in finance", "Change": "-1", "SD": 44, "Search Volume": 210, "URL": "https://www.antwerpmanagementschool.be/en/program/master-finance-investments", "Location": "Dutch / Belgium"}, {"No": 7, "Position": "8", "Keyword": "opleiding manager", "Change": "-1", "SD": 22, "Search Volume": 390, "URL": "https://www.antwerpmanagementschool.be/nl/programma/opleidingen-voor-ervaren-professionals", "Location": "Dutch / Belgium"}, {"No": 8, "Position": "6", "Keyword": "masters business administration", "Change": "-1", "SD": 47, "Search Volume": 2400, "URL": "https://www.antwerpmanagementschool.be/en/program/executive-mba", "Location": "Dutch / Belgium"}, {"No": 22, "Position": "Not ranked", "Keyword": "antwerp university", "Change": "-", "SD": 44, "Search Volume": 880, "URL": "102", "Location": "Dutch / Belgium"}, {"No": 23, "Position": "Not ranked", "Keyword": "maritime", "Change": "-", "SD": 41, "Search Volume": 1000, "URL": "102", "Location": "Dutch / Belgium"}, {"No": 24, "Position": "Not ranked", "Keyword": "inzichten", "Change": "-", "SD": 35, "Search Volume": 1900, "URL": "102", "Location": "Dutch / Belgium"}, {"No": 25, "Position": "Not ranked", "Keyword": "hrm", "Change": "-", "SD": 29, "Search Volume": 1300, "URL": "102", "Location": "Dutch / Belgium"}];
+    const notRanked = [{"No": 22, "Position": "Not ranked", "Keyword": "antwerp university", "Change": "-", "SD": 44, "Search Volume": 880, "URL": "102", "Location": "Dutch / Belgium"}, {"No": 23, "Position": "Not ranked", "Keyword": "maritime", "Change": "-", "SD": 41, "Search Volume": 1000, "URL": "102", "Location": "Dutch / Belgium"}, {"No": 24, "Position": "Not ranked", "Keyword": "inzichten", "Change": "-", "SD": 35, "Search Volume": 1900, "URL": "102", "Location": "Dutch / Belgium"}, {"No": 25, "Position": "Not ranked", "Keyword": "hrm", "Change": "-", "SD": 29, "Search Volume": 1300, "URL": "102", "Location": "Dutch / Belgium"}];
+    const gaining = [{"No": 15, "Position": "4", "Keyword": "mba", "Change": "1", "SD": 44, "Search Volume": 2400, "URL": "https://www.antwerpmanagementschool.be/nl/programma/executive-mba", "Location": "Dutch / Belgium"}, {"No": 16, "Position": "4", "Keyword": "business schools in belgium", "Change": "2", "SD": 32, "Search Volume": 110, "URL": "https://www.antwerpmanagementschool.be/en", "Location": "Dutch / Belgium"}, {"No": 17, "Position": "61", "Keyword": "human resources", "Change": "2", "SD": 38, "Search Volume": 1900, "URL": "https://www.antwerpmanagementschool.be/en/insights?topic=human-resources", "Location": "Dutch / Belgium"}, {"No": 18, "Position": "4", "Keyword": "hr masters", "Change": "2", "SD": 20, "Search Volume": 260, "URL": "https://www.antwerpmanagementschool.be/nl/programma/human-resources", "Location": "Dutch / Belgium"}, {"No": 19, "Position": "4", "Keyword": "master class", "Change": "5", "SD": 41, "Search Volume": 210, "URL": "https://www.antwerpmanagementschool.be/nl/programma/master-class-leiderschap-in-onderwijs", "Location": "Dutch / Belgium"}, {"No": 20, "Position": "4", "Keyword": "master degree management", "Change": "6", "SD": 37, "Search Volume": 260, "URL": "https://www.antwerpmanagementschool.be/en/program/master-management", "Location": "Dutch / Belgium"}, {"No": 21, "Position": "2", "Keyword": "master human resources", "Change": "6", "SD": 30, "Search Volume": 260, "URL": "https://www.antwerpmanagementschool.be/en/program/human-resources", "Location": "Dutch / Belgium"}];
+    const clusters = [{"title": "Career Advancement", "driver": "Career progression and leadership credibility", "keywords": ["executive mba", "executive master", "master of business administration", "mba", "business school", "career advancement executive education"], "page_section": "Outcomes / career transformation section", "recommendation": "Reinforce career acceleration and senior-leadership outcomes without unsupported salary claims."}, {"title": "Flexible Formats", "driver": "Feasibility for busy executives", "keywords": ["part-time executive mba", "executive mba program Belgium", "online infosession", "1.5 years part time", "mba for working professionals"], "page_section": "Format / schedule section", "recommendation": "Move flexible part-time feasibility higher in the page and align with conversion CTAs."}, {"title": "Global Exposure", "driver": "International learning and network", "keywords": ["global executive mba", "international executive mba", "3 continents", "executive mba international modules", "business schools in belgium"], "page_section": "International modules section", "recommendation": "Strengthen query alignment around the three-continent experience and partner-school exposure."}, {"title": "ROI and Salary", "driver": "Investment justification", "keywords": ["executive mba fees", "mba investment", "fees and finance executive mba", "executive mba roi", "career impact mba"], "page_section": "Fees / financing / value section", "recommendation": "Create a value-led FAQ around financing, time investment, and professional return without inventing salary data."}];
+    const keywordMapping = [{"Keyword": "executive mba", "Intent": "Commercial", "Placement": "H1 / Meta title", "Recommended use": "Keep as primary H1 keyword and add Belgium/context in title tag."}, {"Keyword": "executive mba program Belgium", "Intent": "Commercial", "Placement": "Meta title / H2", "Recommended use": "Use in title and overview copy for local relevance."}, {"Keyword": "part-time executive mba", "Intent": "Commercial", "Placement": "H2 / intro", "Recommended use": "Add near first 100 words to capture format-led demand."}, {"Keyword": "master of business administration", "Intent": "Commercial / informational", "Placement": "H2 / FAQ", "Recommended use": "Support at-risk keyword with a definitional FAQ and internal links."}, {"Keyword": "executive mba degree", "Intent": "Commercial", "Placement": "FAQ / body", "Recommended use": "Close competitor gap by explaining qualification/value in clear language."}, {"Keyword": "global executive mba", "Intent": "Commercial", "Placement": "International section", "Recommended use": "Pair with three-continent study experience."}, {"Keyword": "leadership development executive education", "Intent": "Commercial", "Placement": "Program benefits", "Recommended use": "Connect personal development, coaching, and purposeful leadership."}, {"Keyword": "mba for senior managers", "Intent": "Commercial", "Placement": "Audience section", "Recommended use": "Create a segment-specific block for senior executives and mid-career professionals."}];
+  </script>
+
+  <div class="min-h-screen lg:flex">
+    <aside class="hidden lg:flex lg:w-80 lg:flex-col lg:fixed lg:inset-y-0 bg-white border-r border-slate-200">
+      <div class="p-7 border-b border-slate-200">
+        <div class="text-xs font-bold text-accent uppercase tracking-wide">SEO Keyword Research EMA</div>
+        <h1 class="mt-2 text-2xl font-extrabold tracking-tight">AMS Executive MBA</h1>
+        <p class="mt-2 text-sm text-slate-600">Audience: Senior Executives, Mid-career Professionals</p>
+      </div>
+      <nav class="flex-1 p-4 space-y-2" id="sidebarTabs">
+        <button class="tab-button active w-full text-left border-l-4 border-transparent px-4 py-3 rounded-r-xl text-slate-600" data-tab="summary">Executive Summary</button>
+        <button class="tab-button w-full text-left border-l-4 border-transparent px-4 py-3 rounded-r-xl text-slate-600" data-tab="keyword-data">Keyword Data</button>
+        <button class="tab-button w-full text-left border-l-4 border-transparent px-4 py-3 rounded-r-xl text-slate-600" data-tab="content-strategy">Content Strategy</button>
+        <button class="tab-button w-full text-left border-l-4 border-transparent px-4 py-3 rounded-r-xl text-slate-600" data-tab="action-plan">Action Plan</button>
+      </nav>
+      <div class="p-5 border-t border-slate-200 text-xs text-slate-500">
+        AMS target URL<br>
+        <a href="https://www.antwerpmanagementschool.be/en/program/executive-mba" target="_blank" class="text-accent font-semibold break-words">https://www.antwerpmanagementschool.be/en/program/executive-mba</a>
+      </div>
+    </aside>
+
+    <main class="lg:ml-80 flex-1">
+      <div class="lg:hidden bg-white border-b border-slate-200 p-4 sticky top-0 z-10">
+        <label class="text-xs font-bold uppercase text-slate-500">Navigate dashboard</label>
+        <select id="mobileTabs" class="mt-2 w-full rounded-xl border-slate-300 p-3 font-semibold">
+          <option value="summary">Executive Summary</option>
+          <option value="keyword-data">Keyword Data</option>
+          <option value="content-strategy">Content Strategy</option>
+          <option value="action-plan">Action Plan</option>
+        </select>
+      </div>
+
+      <section class="p-5 md:p-8 lg:p-10">
+        <header class="mb-8">
+          <p class="text-sm font-bold text-accent uppercase tracking-wide">Competitor audit</p>
+          <h2 class="text-3xl md:text-4xl font-extrabold tracking-tight mt-2">Executive MBA SEO Strategy Dashboard</h2>
+          <p class="text-slate-600 mt-3 max-w-3xl">AMS vs Vlerick analysis for senior executives and mid-career professionals, using the supplied Ubersuggest workbook and observed page positioning.</p>
+        </header>
+
+        <div id="summary" class="tab-panel active space-y-6">
+          <div class="grid md:grid-cols-3 gap-4">
+            <div class="card p-5"><div class="text-sm font-semibold text-slate-500">Primary audience</div><div class="text-xl font-bold mt-2">Senior Executives</div><p class="text-sm text-slate-600 mt-2">Need strategic growth, global exposure, peer credibility, and leadership transformation.</p></div>
+            <div class="card p-5"><div class="text-sm font-semibold text-slate-500">Secondary audience</div><div class="text-xl font-bold mt-2">Mid-career Professionals</div><p class="text-sm text-slate-600 mt-2">Need flexible advancement, recognized MBA language, and clear value for time investment.</p></div>
+            <div class="card p-5"><div class="text-sm font-semibold text-slate-500">Primary challenge</div><div class="text-xl font-bold mt-2">Defend MBA intent while expanding executive language</div><p class="text-sm text-slate-600 mt-2">AMS holds strong MBA positions, but competitor terms around degree, leadership training, and Dutch MBA queries create gaps.</p></div>
+          </div>
+
+          <div class="card p-6">
+            <h3 class="text-xl font-bold">AMS vs Vlerick positioning</h3>
+            <div class="overflow-x-auto mt-4">
+              <table>
+                <thead><tr><th>Dimension</th><th>AMS Executive MBA</th><th>Vlerick MBA programmes</th><th>Opportunity for AMS</th></tr></thead>
+                <tbody>
+                  <tr><td class="font-semibold">Positioning angle</td><td>Flexible 1.5-year part-time EMBA, global perspective, personal development, sustainable organizational change.</td><td>“DNA of a Leader,” transformational leadership, entrepreneurship, impact, sustainability, global community.</td><td>Lead with “part-time Executive MBA in Belgium” and reinforce global modules as a distinct proof point.</td></tr>
+                  <tr><td class="font-semibold">Top 5 keywords</td><td>mba, masters business administration, business school, master of business administration mba, executive mba.</td><td>executive management mba, opleiding people management, people management opleiding, executive mba degree, leadership training.</td><td>Build FAQ and section copy around “executive mba degree,” “leadership development,” and “MBA for senior managers.”</td></tr>
+                  <tr><td class="font-semibold">Content focus</td><td>Program facts, international modules, personal development, admissions, fees, testimonials.</td><td>Leadership, entrepreneurship, impact, sustainability, electives, community, rankings/accreditation messaging.</td><td>Create stronger decision-driver blocks: outcomes, format, global exposure, investment rationale.</td></tr>
+                  <tr><td class="font-semibold">Keyword gaps</td><td>Not ranking for competitor-owned phrasing such as executive management mba and executive mba degree in the supplied data.</td><td>Ranks #1 for 10 supplied keywords, including “executive mba” and “leadership training.”</td><td>Use semantic variants without stuffing: executive education, postgraduate leadership program, continuing professional development.</td></tr>
+                  <tr><td class="font-semibold">Differentiation</td><td>Three continents, Antwerp location, part-time feasibility, self-development modules, personal coaching.</td><td>Broad MBA hub with strong leadership narrative and global community messaging.</td><td>Position AMS as the globally exposed, feasible Executive MBA for ambitious professionals in Belgium.</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <div class="grid lg:grid-cols-2 gap-6">
+            <div class="card p-6">
+              <h3 class="font-bold text-lg">Competitor traffic overview</h3>
+              <div id="topPagesList" class="mt-4 space-y-3"></div>
+            </div>
+            <div class="card p-6">
+              <h3 class="font-bold text-lg">Search intent summary</h3>
+              <p class="text-slate-600 mt-3">Primary search intent is <strong>commercial consideration</strong>: prospective executives compare MBA formats, credibility, outcomes, and fit before booking a call, requesting a brochure, or applying.</p>
+              <div class="mt-4 grid gap-3">
+                <div class="rounded-xl bg-slate-50 p-4"><strong>Informational:</strong> “master of business administration,” “mba betekenis,” program meaning and fit.</div>
+                <div class="rounded-xl bg-slate-50 p-4"><strong>Commercial:</strong> “executive mba,” “executive mba degree,” “part-time executive mba.”</div>
+                <div class="rounded-xl bg-slate-50 p-4"><strong>Navigational:</strong> brand and school-specific programme pages.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div id="keyword-data" class="tab-panel space-y-6">
+          <div class="card p-6">
+            <h3 class="text-xl font-bold">Competitor estimated visits by keyword</h3>
+            <div class="mt-5 h-80"><canvas id="visitsChart"></canvas></div>
+          </div>
+          <div class="card p-6">
+            <h3 class="text-xl font-bold">Competitor keyword table</h3>
+            <div class="overflow-x-auto mt-4" id="competitorTable"></div>
+          </div>
+          <div class="card p-6">
+            <h3 class="text-xl font-bold">AMS position tracking with change indicators</h3>
+            <div class="overflow-x-auto mt-4" id="amsTable"></div>
+          </div>
+        </div>
+
+        <div id="content-strategy" class="tab-panel space-y-6">
+          <div class="grid lg:grid-cols-2 gap-5" id="clusterCards"></div>
+          <div class="card p-6">
+            <h3 class="text-xl font-bold">Keyword-to-page deployment map</h3>
+            <div class="overflow-x-auto mt-4" id="mappingTable"></div>
+          </div>
+          <div class="card p-6">
+            <h3 class="text-xl font-bold">Recommended metadata</h3>
+            <div class="grid md:grid-cols-2 gap-4 mt-4">
+              <div class="rounded-xl bg-slate-50 p-4"><div class="font-bold">Meta title</div><p class="text-sm text-slate-600 mt-1">Executive MBA Program Belgium | Part-time EMBA | AMS</p></div>
+              <div class="rounded-xl bg-slate-50 p-4"><div class="font-bold">Meta description</div><p class="text-sm text-slate-600 mt-1">Explore the AMS Executive MBA: a flexible 1.5-year part-time program in Antwerp with international modules, personal development, and leadership-focused learning.</p></div>
+              <div class="rounded-xl bg-slate-50 p-4"><div class="font-bold">Primary H1</div><p class="text-sm text-slate-600 mt-1">Executive MBA</p></div>
+              <div class="rounded-xl bg-slate-50 p-4"><div class="font-bold">Priority H2 additions</div><p class="text-sm text-slate-600 mt-1">Part-time Executive MBA in Belgium; Global Executive MBA experience across 3 continents; Executive MBA admissions and investment.</p></div>
+            </div>
+          </div>
+        </div>
+
+        <div id="action-plan" class="tab-panel space-y-6">
+          <div class="grid lg:grid-cols-3 gap-5">
+            <div class="card p-5"><div class="text-sm font-semibold text-slate-500">At-risk keywords</div><div class="text-3xl font-extrabold mt-2" id="riskCount"></div><p class="text-sm text-slate-600 mt-2">Negative change in AMS tracking.</p></div>
+            <div class="card p-5"><div class="text-sm font-semibold text-slate-500">Keyword gaps</div><div class="text-3xl font-extrabold mt-2" id="gapCount"></div><p class="text-sm text-slate-600 mt-2">Competitor terms not present in AMS tracking.</p></div>
+            <div class="card p-5"><div class="text-sm font-semibold text-slate-500">Not ranked</div><div class="text-3xl font-extrabold mt-2" id="notRankedCount"></div><p class="text-sm text-slate-600 mt-2">AMS tracked terms with no organic position.</p></div>
+          </div>
+
+          <div class="card p-6">
+            <h3 class="text-xl font-bold">Priority actions</h3>
+            <ol class="mt-4 space-y-3 list-decimal list-inside text-slate-700">
+              <li><strong>Protect at-risk MBA terms:</strong> add a concise “What is an Executive MBA / Master of Business Administration?” FAQ and strengthen internal links to the EMBA page.</li>
+              <li><strong>Close competitor semantic gaps:</strong> add copy for “executive mba degree,” “executive management mba,” and “leadership development” in natural page sections.</li>
+              <li><strong>Separate decision drivers:</strong> create scannable modules for career advancement, flexible learning, global exposure, and investment rationale.</li>
+              <li><strong>Use AI discovery prompts:</strong> answer the supplied prompts directly in FAQ-style content so AI assistants can extract clear recommendations.</li>
+              <li><strong>Improve Dutch/English pathway logic:</strong> review Dutch MBA and leadership pages that capture volume but do not necessarily support English EMBA consideration.</li>
+            </ol>
+          </div>
+
+          <div class="grid lg:grid-cols-2 gap-6">
+            <div class="card p-6">
+              <h3 class="text-xl font-bold">At-risk keywords</h3>
+              <div class="overflow-x-auto mt-4" id="riskTable"></div>
+            </div>
+            <div class="card p-6">
+              <h3 class="text-xl font-bold">Keyword gaps and quick wins</h3>
+              <div class="overflow-x-auto mt-4" id="gapTable"></div>
+            </div>
+          </div>
+
+          <div class="card p-6">
+            <h3 class="text-xl font-bold">AI prompt optimization</h3>
+            <p class="text-slate-600 mt-2">Use these supplied prompts as direct FAQ or answer-block targets.</p>
+            <div id="promptList" class="mt-4 grid gap-3"></div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script>
+    const fmt = new Intl.NumberFormat('en-US');
+
+    function makeTable(rows, cols) {
+      const thead = '<thead><tr>' + cols.map(c => `<th>${c.label}</th>`).join('') + '</tr></thead>';
+      const tbody = '<tbody>' + rows.map(r => '<tr>' + cols.map(c => `<td>${c.render ? c.render(r) : (r[c.key] ?? '')}</td>`).join('') + '</tr>').join('') + '</tbody>';
+      return `<table>${thead}${tbody}</table>`;
+    }
+
+    function changeBadge(change) {
+      if (change === '-') return '<span class="pill bg-slate-100 text-slate-600">Gap</span>';
+      const n = Number(change);
+      if (n < 0) return `<span class="pill bg-red-50 text-red-700">${change}</span>`;
+      if (n > 0) return `<span class="pill bg-emerald-50 text-emerald-700">+${n}</span>`;
+      return '<span class="pill bg-slate-100 text-slate-600">Stable</span>';
+    }
+
+    function initTables() {
+      document.getElementById('topPagesList').innerHTML = topPages.map(p => `
+        <div class="flex items-start justify-between gap-4 rounded-xl bg-slate-50 p-3">
+          <div><div class="font-semibold">${p.Title}</div><a class="text-xs text-accent break-all" href="${p.URL}" target="_blank">${p.URL}</a></div>
+          <div class="text-right"><div class="font-bold">${fmt.format(p["Est. Visits"])}</div><div class="text-xs text-slate-500">visits</div></div>
+        </div>`).join('');
+
+      document.getElementById('competitorTable').innerHTML = makeTable(competitorKeywords, [
+        {key:'Keywords', label:'Keyword'},
+        {key:'Volume', label:'Volume'},
+        {key:'Position', label:'Position'},
+        {key:'Est. Visits', label:'Est. Visits'},
+        {key:'SEO Difficulty', label:'SD'},
+        {key:'Ranking URL', label:'Ranking URL', render:r=>`<a class="text-accent" href="${r["Ranking URL"]}" target="_blank">Open</a>`}
+      ]);
+
+      document.getElementById('amsTable').innerHTML = makeTable(amsTracking, [
+        {key:'Keyword', label:'Keyword'},
+        {key:'Position', label:'Position'},
+        {key:'Change', label:'Change', render:r=>changeBadge(r.Change)},
+        {key:'Search Volume', label:'Volume'},
+        {key:'SD', label:'SD'},
+        {key:'URL', label:'URL', render:r=>String(r.URL).startsWith('http') ? `<a class="text-accent" href="${r.URL}" target="_blank">Open</a>` : r.URL}
+      ]);
+
+      document.getElementById('riskCount').textContent = atRisk.length;
+      document.getElementById('gapCount').textContent = keywordGaps.length;
+      document.getElementById('notRankedCount').textContent = notRanked.length;
+
+      document.getElementById('riskTable').innerHTML = makeTable(atRisk, [
+        {key:'Keyword', label:'Keyword'},
+        {key:'Position', label:'Position'},
+        {key:'Change', label:'Change', render:r=>changeBadge(r.Change)},
+        {key:'Search Volume', label:'Volume'},
+        {key:'URL', label:'URL', render:r=>String(r.URL).startsWith('http') ? `<a class="text-accent" href="${r.URL}" target="_blank">Open</a>` : r.URL}
+      ]);
+
+      document.getElementById('gapTable').innerHTML = makeTable(keywordGaps, [
+        {key:'Keywords', label:'Keyword'},
+        {key:'Position', label:'Competitor position'},
+        {key:'Est. Visits', label:'Est. Visits'},
+        {key:'SEO Difficulty', label:'SD'},
+        {key:'Keywords', label:'Action', render:r=> r["SEO Difficulty"] <= 35 ? '<span class="pill bg-emerald-50 text-emerald-700">Quick win</span>' : '<span class="pill bg-blue-50 text-blue-700">Content gap</span>'}
+      ]);
+
+      document.getElementById('clusterCards').innerHTML = clusters.map(c => `
+        <div class="card p-6">
+          <div class="flex items-center justify-between gap-4">
+            <h3 class="text-xl font-bold">${c.title}</h3>
+            <span class="pill bg-blue-50 text-blue-700">${c.driver}</span>
+          </div>
+          <div class="mt-4 flex flex-wrap gap-2">${c.keywords.map(k=>`<span class="pill bg-slate-100 text-slate-700">${k}</span>`).join('')}</div>
+          <p class="text-sm text-slate-600 mt-4"><strong>Section:</strong> ${c.page_section}</p>
+          <p class="text-sm text-slate-600 mt-2">${c.recommendation}</p>
+        </div>`).join('');
+
+      document.getElementById('mappingTable').innerHTML = makeTable(keywordMapping, [
+        {key:'Keyword', label:'Keyword'},
+        {key:'Intent', label:'Intent'},
+        {key:'Placement', label:'Placement'},
+        {key:'Recommended use', label:'Recommended use'}
+      ]);
+
+      document.getElementById('promptList').innerHTML = aiPrompts.map((p, i) => `
+        <div class="rounded-xl bg-slate-50 p-4">
+          <div class="text-xs font-bold text-accent uppercase">Prompt ${i+1}</div>
+          <p class="font-semibold mt-1">${p}</p>
+          <p class="text-sm text-slate-600 mt-2">Recommended answer block: explain AMS fit using leadership development, global perspective, networking, and career advancement language only where supported by the page.</p>
+        </div>`).join('');
+    }
+
+    let chartInstance;
+    function initChart() {
+      const ctx = document.getElementById('visitsChart');
+      if (!ctx || chartInstance) return;
+      chartInstance = new Chart(ctx, {
+        type: 'bar',
+        data: {
+          labels: competitorKeywords.map(k => k.Keywords),
+          datasets: [{ label: 'Estimated visits', data: competitorKeywords.map(k => k["Est. Visits"]), borderWidth: 1 }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: { legend: { display: false } },
+          scales: { x: { ticks: { maxRotation: 45, minRotation: 30 } }, y: { beginAtZero: true } }
+        }
+      });
+    }
+
+    function setTab(tab) {
+      document.querySelectorAll('.tab-panel').forEach(p => p.classList.toggle('active', p.id === tab));
+      document.querySelectorAll('.tab-button').forEach(b => b.classList.toggle('active', b.dataset.tab === tab));
+      const mobile = document.getElementById('mobileTabs');
+      if (mobile) mobile.value = tab;
+      if (tab === 'keyword-data') setTimeout(initChart, 50);
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      initTables();
+      document.querySelectorAll('.tab-button').forEach(b => b.addEventListener('click', () => setTab(b.dataset.tab)));
+      document.getElementById('mobileTabs').addEventListener('change', e => setTab(e.target.value));
+    });
+  </script>
+</body>
+</html>
