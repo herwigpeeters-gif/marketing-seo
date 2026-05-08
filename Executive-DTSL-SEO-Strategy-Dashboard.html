@@ -1,413 +1,893 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>SEO Keyword Dashboard | Digital Leadership & Transformation</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
-  <style>
-    body {
-      font-family: Inter, sans-serif;
-      background: #f8fafc;
-      color: #0f172a;
-    }
-    .tab {
-      display: none;
-    }
-    .tab.active {
-      display: block;
-    }
-    .nav.active {
-      border-left: 4px solid #2563eb;
-      font-weight: 700;
-      color: #2563eb;
-      background: #eff6ff;
-    }
-    .badge {
-      display: inline-block;
-      padding: 0.25rem 0.5rem;
-      border-radius: 0.25rem;
-      font-size: 0.875rem;
-      margin-right: 0.25rem;
-    }
-  </style>
-</head>
-<body>
-  <div class="min-h-screen md:flex">
-    <!-- Sidebar Navigation -->
-    <aside class="hidden md:flex md:w-72 bg-white border-r border-slate-200 flex-col fixed h-screen">
-      <div class="p-6">
-        <p class="text-xs uppercase tracking-wide text-blue-600 font-bold">SEO Keyword Research EMA</p>
-        <h1 class="text-xl font-extrabold mt-2">Executive SEO Audit</h1>
-        <p class="text-sm text-slate-600 mt-1">Antwerp Management School</p>
-      </div>
-      <nav class="px-3 space-y-1">
-        <a href="https://www.antwerpmanagementschool.be/en/program/executive-master-digital-leadership-and-transformation" class="block w-full text-left px-4 py-3 rounded-lg hover:bg-slate-100 text-slate-600 hover:text-slate-900">
-          🏠 Home
-        </a>
-        <button class="nav active w-full text-left px-4 py-3 rounded-lg hover:bg-slate-100" data-tab="summary">
-          Executive Summary
-        </button>
-        <button class="nav w-full text-left px-4 py-3 rounded-lg hover:bg-slate-100" data-tab="keywords">
-          Keyword Data
-        </button>
-        <button class="nav w-full text-left px-4 py-3 rounded-lg hover:bg-slate-100" data-tab="strategy">
-          Content Strategy
-        </button>
-        <button class="nav w-full text-left px-4 py-3 rounded-lg hover:bg-slate-100" data-tab="plan">
-          Action Plan
-        </button>
-      </nav>
-      <div class="mt-auto p-6 text-xs text-slate-500">
-        <p>AMS URL:</p>
-        <a class="text-blue-600 underline break-words" href="https://www.antwerpmanagementschool.be/en/program/executive-master-digital-leadership-and-transformation">
-          Executive Master Programme
-        </a>
-      </div>
-    </aside>
-
-    <!-- Main Content -->
-    <main class="md:ml-72 w-full p-4 md:p-8">
-      <!-- Mobile Navigation -->
-      <div class="md:hidden mb-4">
-        <select id="mobileNav" class="w-full p-3 rounded-xl border border-slate-300">
-          <option value="home">🏠 Home</option>
-          <option value="summary">Executive Summary</option>
-          <option value="keywords">Keyword Data</option>
-          <option value="strategy">Content Strategy</option>
-          <option value="plan">Action Plan</option>
-        </select>
-      </div>
-
-      <!-- Executive Summary Section -->
-      <section id="summary" class="tab active space-y-6">
-        <div>
-          <h2 class="text-3xl font-extrabold">Executive Summary</h2>
-          <p class="text-slate-600 mt-2">
-            Audience: Senior Executives and Mid-career Professionals seeking practical digital leadership, AI fluency, and transformation governance. Search intent is primarily commercial consider[...]
-          </p>
-        </div>
-
-        <div class="grid md:grid-cols-3 gap-4">
-          <div class="bg-white p-5 rounded-2xl shadow">
-            <h3 class="font-bold">Primary Challenge</h3>
-            <p class="text-sm mt-2">
-              AMS has a strong degree-led proposition, but competitor keyword visibility clusters around leadership training and digital transformation. Opportunity exists to dominate non-technica[...]
-            </p>
-          </div>
-          <div class="bg-white p-5 rounded-2xl shadow">
-            <h3 class="font-bold">Persona Insight</h3>
-            <p class="text-sm mt-2">
-              The buyer wants confidence, executive language, frameworks, and internal legitimacy to lead digital transformation without coding expertise. ROI and business case messaging critical.
-            </p>
-          </div>
-          <div class="bg-white p-5 rounded-2xl shadow">
-            <h3 class="font-bold">Search Intent</h3>
-            <p class="text-sm mt-2">
-              Primary intent is commercial consideration, supported by informational content around AI trends, transformation roadmaps, and governance best practices.
-            </p>
-          </div>
-        </div>
-
-        <div class="bg-white rounded-2xl shadow p-5 overflow-x-auto">
-          <h3 class="font-bold text-lg mb-3">AMS vs Competitor Positioning</h3>
-          <table class="w-full text-sm">
-            <thead>
-              <tr class="border-b">
-                <th class="text-left py-2 px-2">Dimension</th>
-                <th class="text-left py-2 px-2">AMS</th>
-                <th class="text-left py-2 px-2">Vlerick</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr class="border-b">
-                <td class="py-2 px-2 font-semibold">Positioning angle</td>
-                <td class="py-2 px-2">Executive Master with dual focus on digital leadership and transformation; bridges Business and IT; offers four majors and MSc degree.</td>
-                <td class="py-2 px-2">Portfolio page for Digital Leaders; emphasizes business value and peer learning</td>
-              </tr>
-              <tr class="border-b">
-                <td class="py-2 px-2 font-semibold">Top 5 keywords</td>
-                <td class="py-2 px-2">executive master, executive mba, master class, management opleiding, business school</td>
-                <td class="py-2 px-2">opleidingen voor ondernemers, opleiding leiderschap, leadership training, opleiding management</td>
-              </tr>
-              <tr class="border-b">
-                <td class="py-2 px-2 font-semibold">Content focus</td>
-                <td class="py-2 px-2">Academic rigor, part-time executive master, IT architecture/cyber/audit/management majors, peer learning, business value.</td>
-                <td class="py-2 px-2">Programme discovery hub with leadership frameworks, business case, alumni outcomes</td>
-              </tr>
-              <tr class="border-b">
-                <td class="py-2 px-2 font-semibold">Identified keyword gaps</td>
-                <td class="py-2 px-2" colspan="2">AMS is not visibly targeting leadership training, leadership training Belgium, take the lead AI, digital transformation workshop, governance and [...]
-              </tr>
-              <tr>
-                <td class="py-2 px-2 font-semibold">Differentiation opportunities</td>
-                <td class="py-2 px-2" colspan="2">Use "leadership-first, not coding" messaging; build content around transformation roadmap, ROI measurement, governance, and non-technical executi[...]
-              </tr>
-            </tbody>
-          </table>
-        </div>
-
-        <div class="bg-white rounded-2xl shadow p-5">
-          <h3 class="font-bold text-lg mb-3">Competitor Top Pages by Estimated Visits</h3>
-          <div id="topPagesTable" class="overflow-x-auto"></div>
-        </div>
-      </section>
-
-      <!-- Keyword Data Section -->
-      <section id="keywords" class="tab space-y-6">
-        <div>
-          <h2 class="text-3xl font-extrabold">Keyword Data</h2>
-        </div>
-
-        <div class="bg-white p-5 rounded-2xl shadow">
-          <canvas id="visitsChart" height="120"></canvas>
-        </div>
-
-        <div class="grid lg:grid-cols-2 gap-6">
-          <div class="bg-white p-5 rounded-2xl shadow overflow-x-auto">
-            <h3 class="font-bold mb-3">Competitor Keywords</h3>
-            <div id="compTable"></div>
-          </div>
-          <div class="bg-white p-5 rounded-2xl shadow overflow-x-auto">
-            <h3 class="font-bold mb-3">AMS Position Tracking</h3>
-            <div id="posTable"></div>
-          </div>
-        </div>
-
-        <div class="bg-white p-5 rounded-2xl shadow">
-          <h3 class="font-bold mb-3">Google Trends / AI Trend Angles</h3>
-          <p class="text-sm text-slate-600">
-            Prioritize AI agents, multimodal AI, enterprise search, workforce transformation, and governance. Create content bridging traditional digital transformation with AI leadership narrati[...]
-          </p>
-        </div>
-      </section>
-
-      <!-- Content Strategy Section -->
-      <section id="strategy" class="tab space-y-6">
-        <div>
-          <h2 class="text-3xl font-extrabold">Content Strategy</h2>
-        </div>
-
-        <div class="grid md:grid-cols-2 gap-4" id="clusters"></div>
-
-        <div class="bg-white p-5 rounded-2xl shadow">
-          <h3 class="font-bold text-lg mb-3">Keyword-to-Page Mapping</h3>
-          <table class="w-full mt-3 text-sm">
-            <thead>
-              <tr class="border-b">
-                <th class="text-left py-2 px-2">Element</th>
-                <th class="text-left py-2 px-2">Recommendation</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr class="border-b">
-                <td class="py-2 px-2 font-semibold">Meta title</td>
-                <td class="py-2 px-2">Executive Master in Digital Leadership & Transformation | AMS</td>
-              </tr>
-              <tr class="border-b">
-                <td class="py-2 px-2 font-semibold">Meta description</td>
-                <td class="py-2 px-2">Develop leadership-first digital transformation capabilities, AI fluency and business-IT alignment through a part-time executive master in Antwerp.</td>
-              </tr>
-              <tr class="border-b">
-                <td class="py-2 px-2 font-semibold">H1</td>
-                <td class="py-2 px-2">Digital Leadership & Transformation</td>
-              </tr>
-              <tr class="border-b">
-                <td class="py-2 px-2 font-semibold">H2/H3</td>
-                <td class="py-2 px-2">Digital transformation leadership, AI for business leaders, transformation governance, ROI measurement, peer learning, flexible part-time format.</td>
-              </tr>
-              <tr>
-                <td class="py-2 px-2 font-semibold">Landing sections</td>
-                <td class="py-2 px-2">For non-technical executives, roadmap outcomes, business case and ROI, governance, alumni application stories, admission and funding.</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </section>
-
-      <!-- Action Plan Section -->
-      <section id="plan" class="tab space-y-6">
-        <div>
-          <h2 class="text-3xl font-extrabold">Action Plan</h2>
-        </div>
-
-        <div class="grid md:grid-cols-2 gap-4">
-          <div class="bg-white p-5 rounded-2xl shadow">
-            <h3 class="font-bold">At-risk Keywords</h3>
-            <div id="riskList" class="mt-3 text-sm"></div>
-          </div>
-          <div class="bg-white p-5 rounded-2xl shadow">
-            <h3 class="font-bold">Keyword Gaps</h3>
-            <div id="gapList" class="mt-3 text-sm"></div>
-          </div>
-        </div>
-
-        <div class="bg-white p-5 rounded-2xl shadow">
-          <h3 class="font-bold">AI Prompt Optimization</h3>
-          <div id="promptList" class="mt-3 text-sm"></div>
-        </div>
-
-        <div class="bg-white p-5 rounded-2xl shadow">
-          <h3 class="font-bold">Content Gaps</h3>
-          <p class="text-sm mt-2">
-            Create pages or sections for: Digital leadership for non-technical executives; AI transformation roadmap for business leaders; Governance and risk in digital transformation; ROI measu[...]
-          </p>
-        </div>
-      </section>
-    </main>
-  </div>
-
-  <script>
-    // Data structure
-    const DATA = {
-      "position": [
-        {
-          "No": 1,
-          "Position": "1",
-          "Keyword": "executive master",
-          "Change": "0",
-          "SD": 28,
-          "Search Volume": 170,
-          "URL": "https://www.antwerpmanagementschool.be/nl/programma/executive-master-digital-leadership-transformation"
-        }
-      ],
-      "topPages": [],
-      "compKeywords": [],
-      "suggestions": [],
-      "aiPrompts": [
-        "Develop a comparison framework showing how AMS differs from competitors on non-technical leadership",
-        "Create an ROI calculator for digital transformation investing in leadership development",
-        "Build a governance playbook for business leaders implementing digital transformation"
-      ]
-    };
-
-    // Keyword clusters for content strategy
-    const clusters = [
-      {
-        name: "Career Advancement",
-        kws: ["digital leadership masterclass", "executive master", "career boost", "leadership training"],
-        action: "Show how the programme builds strategic credibility and future-ready capability for C-suite and mid-career transitions."
-      },
-      {
-        name: "Flexible Learning Formats",
-        kws: ["part-time executive master", "digital transformation workshop", "online or on campus"],
-        action: "Reduce time objections with concise format, application rhythm and blended delivery options."
-      },
-      {
-        name: "Global Exposure",
-        kws: ["business school", "peer learning", "international alumni network"],
-        action: "Emphasize cohort diversity, peer learning and international business perspectives where supported by course design."
-      },
-      {
-        name: "ROI and Salary",
-        kws: ["digital transformation ROI", "business case", "measurable business impact"],
-        action: "Add a downloadable business-case template and ROI measurement content."
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SEO Keyword Dashboard | Digital Leadership & Transformation</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        font-family: Inter, sans-serif;
+        background: #f8fafc;
+        color: #0f172a;
       }
-    ];
-
-    // Utility function to render tables
-    function table(rows, cols) {
-      return `<table class="w-full text-sm border-collapse">
-        <thead>
-          <tr class="border-b">
-            ${cols.map(c => `<th class="text-left py-2 px-2 font-semibold">${c}</th>`).join('')}
-          </tr>
-        </thead>
-        <tbody>
-          ${rows.map(r => `<tr class="border-b">
-            ${cols.map(c => `<td class="py-2 px-2">${r[c] ?? ''}</td>`).join('')}
-          </tr>`).join('')}
-        </tbody>
-      </table>`;
-    }
-
-    // Change badge styling
-    function changeBadge(v) {
-      const n = parseInt(v);
-      if (isNaN(n)) return '<span class="badge bg-slate-100">Gap</span>';
-      if (n < 0) return `<span class="badge bg-red-100 text-red-700">↓ ${v}</span>`;
-      if (n > 0) return `<span class="badge bg-green-100 text-green-700">↑ ${v}</span>`;
-      return '<span class="badge bg-slate-100">— 0</span>';
-    }
-
-    // Populate tables
-    document.getElementById('topPagesTable').innerHTML = table(DATA.topPages, ["Title", "Est. Visits", "Backlinks", "URL"]);
-    document.getElementById('compTable').innerHTML = table(DATA.compKeywords, ["Keywords", "Volume", "Position", "Est. Visits", "SEO Difficulty"]);
-    
-    document.getElementById('posTable').innerHTML = '<table class="w-full text-sm border-collapse"><thead><tr class="border-b"><th class="text-left py-2 px-2 font-semibold">Keyword</th><th class=[...]
-      DATA.position.map(r => `<tr class="border-b"><td class="py-2 px-2">${r.Keyword}</td><td class="py-2 px-2">${r.Position}</td><td class="py-2 px-2">${changeBadge(r.Change)}</td><td class="py-[...]
-      '</tbody></table>';
-
-    document.getElementById('clusters').innerHTML = clusters.map(c => 
-      `<div class="bg-white p-5 rounded-2xl shadow">
-        <h3 class="font-bold text-lg">${c.name}</h3>
-        <p class="text-sm mt-2 text-slate-600">${c.action}</p>
-        <div class="mt-3 flex flex-wrap gap-2">
-          ${c.kws.map(kw => `<span class="badge bg-blue-50 text-blue-700">${kw}</span>`).join('')}
+      .tab {
+        display: none;
+      }
+      .tab.active {
+        display: block;
+      }
+      .nav.active {
+        border-left: 4px solid #2563eb;
+        font-weight: 700;
+        color: #2563eb;
+        background: #eff6ff;
+      }
+      table {
+        font-size: 0.85rem;
+      }
+      th {
+        text-align: left;
+        background: #e2e8f0;
+      }
+      td,
+      th {
+        padding: 0.6rem;
+        border-bottom: 1px solid #e2e8f0;
+        vertical-align: top;
+      }
+      .badge {
+        padding: 0.15rem 0.45rem;
+        border-radius: 9999px;
+        font-size: 0.75rem;
+        font-weight: 700;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="min-h-screen md:flex">
+      <aside
+        class="hidden md:flex md:w-72 bg-white border-r border-slate-200 flex-col fixed h-screen"
+      >
+        <div class="p-6">
+          <p class="text-xs uppercase tracking-wide text-blue-600 font-bold">
+            Transformation Thomas
+          </p>
+          <h1 class="text-xl font-extrabold mt-2">Executive SEO Audit</h1>
+          <p class="text-sm text-slate-500 mt-2">
+            Digital Leadership & Transformation
+          </p>
         </div>
-      </div>`
-    ).join('');
+        <nav class="px-3 space-y-1">
+          <button
+            class="nav active w-full text-left px-4 py-3 rounded-lg"
+            data-tab="summary"
+          >
+            Executive Summary
+          </button>
+          <button
+            class="nav w-full text-left px-4 py-3 rounded-lg"
+            data-tab="keywords"
+          >
+            Keyword Data
+          </button>
+          <button
+            class="nav w-full text-left px-4 py-3 rounded-lg"
+            data-tab="strategy"
+          >
+            Content Strategy
+          </button>
+          <button
+            class="nav w-full text-left px-4 py-3 rounded-lg"
+            data-tab="plan"
+          >
+            Action Plan
+          </button>
+        </nav>
+        <div class="mt-auto p-6 text-xs text-slate-500">
+          AMS URL:<br /><a
+            class="text-blue-600 underline break-words"
+            href="https://www.antwerpmanagementschool.be/en/program/executive-master-digital-leadership-and-transformation"
+            >https://www.antwerpmanagementschool.be/en/program/executive-master-digital-leadership-and-transformation</a
+          >
+        </div>
+      </aside>
+      <main class="md:ml-72 w-full p-4 md:p-8">
+        <div class="md:hidden mb-4">
+          <select id="mobileNav" class="w-full p-3 rounded-xl border">
+            <option value="summary">Executive Summary</option>
+            <option value="keywords">Keyword Data</option>
+            <option value="strategy">Content Strategy</option>
+            <option value="plan">Action Plan</option>
+          </select>
+        </div>
 
-    document.getElementById('riskList').innerHTML = DATA.position
-      .filter(r => parseInt(r.Change) < 0)
-      .map(r => `<p class="mb-2"><b>${r.Keyword}</b>: ${r.Change} positions, volume ${r["Search Volume"]}</p>`)
-      .join('') || '<p class="text-slate-500">No at-risk keywords detected</p>';
+        <section id="summary" class="tab active space-y-6">
+          <div>
+            <h2 class="text-3xl font-extrabold">Executive Summary</h2>
+            <p class="text-slate-600 mt-2">
+              Audience: Senior Executives and Mid-career Professionals seeking
+              practical digital leadership, AI fluency, and transformation
+              legitimacy.
+            </p>
+          </div>
+          <div class="grid md:grid-cols-3 gap-4">
+            <div class="bg-white p-5 rounded-2xl shadow">
+              <h3 class="font-bold">Primary Challenge</h3>
+              <p class="text-sm mt-2">
+                AMS has a strong degree-led proposition, but competitor keyword
+                visibility clusters around accessible leadership and AI
+                programme terms.
+              </p>
+            </div>
+            <div class="bg-white p-5 rounded-2xl shadow">
+              <h3 class="font-bold">Persona Insight</h3>
+              <p class="text-sm mt-2">
+                The buyer wants confidence, executive language, frameworks, and
+                internal legitimacy to lead transformation without becoming
+                technical.
+              </p>
+            </div>
+            <div class="bg-white p-5 rounded-2xl shadow">
+              <h3 class="font-bold">Search Intent</h3>
+              <p class="text-sm mt-2">
+                Primary intent is commercial consideration, supported by
+                informational content around AI transformation, ROI, governance,
+                and change resistance.
+              </p>
+            </div>
+          </div>
+          <div class="bg-white rounded-2xl shadow p-5 overflow-x-auto">
+            <h3 class="font-bold text-lg mb-3">
+              AMS vs Competitor Positioning
+            </h3>
+            <table class="w-full">
+              <tbody>
+                <tr>
+                  <th>Dimension</th>
+                  <th>AMS</th>
+                  <th>Vlerick</th>
+                </tr>
+                <tr>
+                  <td>Positioning angle</td>
+                  <td>
+                    Executive Master with dual focus on digital leadership and
+                    transformation; bridges Business and IT; offers four majors
+                    and MSc degree.
+                  </td>
+                  <td>
+                    Portfolio page for Digital Transformation and AI, framed
+                    around leadership, strategy, focus, online/on-campus
+                    choices, and alumni network.
+                  </td>
+                </tr>
+                <tr>
+                  <td>Top 5 keywords</td>
+                  <td>
+                    executive master, executive mba, master class, management
+                    opleiding, business school
+                  </td>
+                  <td>
+                    opleidingen voor ondernemers, opleiding leiderschap,
+                    leadership training, opleidingen leiderschap, take the lead
+                    ai
+                  </td>
+                </tr>
+                <tr>
+                  <td>Content focus</td>
+                  <td>
+                    Academic rigor, part-time executive master, IT
+                    architecture/cyber/audit/management majors, peer learning,
+                    business value.
+                  </td>
+                  <td>
+                    Programme discovery hub with leadership, strategy, AI,
+                    marketing, IT management, finance and cyber tracks.
+                  </td>
+                </tr>
+                <tr>
+                  <td>Identified keyword gaps</td>
+                  <td colspan="2">
+                    AMS is not visibly targeting leadership training, leadership
+                    training Belgium, take the lead AI, digital transformation
+                    workshop, governance and sector-specific transformation
+                    keywords.
+                  </td>
+                </tr>
+                <tr>
+                  <td>Differentiation opportunities</td>
+                  <td colspan="2">
+                    Use “leadership-first, not coding” messaging; build content
+                    around transformation roadmap, ROI measurement, governance,
+                    and non-technical executives.
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="bg-white rounded-2xl shadow p-5">
+            <h3 class="font-bold text-lg mb-3">
+              Competitor Top Pages by Estimated Visits
+            </h3>
+            <div id="topPagesTable"></div>
+          </div>
+        </section>
 
-    document.getElementById('gapList').innerHTML = [
-      ...DATA.compKeywords.map(x => x.Keywords),
-      ...DATA.suggestions.filter(x => x["SEO Difficulty"] <= 21).map(x => x.Keyword)
-    ].map(k => `<span class="badge bg-blue-50 text-blue-700">${k}</span>`).join('') || '<p class="text-slate-500">No gaps identified</p>';
+        <section id="keywords" class="tab space-y-6">
+          <h2 class="text-3xl font-extrabold">Keyword Data</h2>
+          <div class="bg-white p-5 rounded-2xl shadow">
+            <canvas id="visitsChart" height="120"></canvas>
+          </div>
+          <div class="grid lg:grid-cols-2 gap-6">
+            <div class="bg-white p-5 rounded-2xl shadow overflow-x-auto">
+              <h3 class="font-bold mb-3">Competitor Keywords</h3>
+              <div id="compTable"></div>
+            </div>
+            <div class="bg-white p-5 rounded-2xl shadow overflow-x-auto">
+              <h3 class="font-bold mb-3">AMS Position Tracking</h3>
+              <div id="posTable"></div>
+            </div>
+          </div>
+          <div class="bg-white p-5 rounded-2xl shadow">
+            <h3 class="font-bold mb-3">Google Trends / AI Trend Angles</h3>
+            <p class="text-sm text-slate-600">
+              Prioritize AI agents, multimodal AI, enterprise search, workflow
+              automation, AI governance and ROI measurement as
+              thought-leadership angles.
+            </p>
+          </div>
+        </section>
 
-    document.getElementById('promptList').innerHTML = DATA.aiPrompts
-      .map(p => `<p class="mb-2">• ${p}</p>`)
-      .join('');
+        <section id="strategy" class="tab space-y-6">
+          <h2 class="text-3xl font-extrabold">Content Strategy</h2>
+          <div class="grid md:grid-cols-2 gap-4" id="clusters"></div>
+          <div class="bg-white p-5 rounded-2xl shadow">
+            <h3 class="font-bold text-lg">Keyword-to-Page Mapping</h3>
+            <table class="w-full mt-3">
+              <tr>
+                <th>Element</th>
+                <th>Recommendation</th>
+              </tr>
+              <tr>
+                <td>Meta title</td>
+                <td>
+                  Executive Master in Digital Leadership & Transformation | AMS
+                </td>
+              </tr>
+              <tr>
+                <td>Meta description</td>
+                <td>
+                  Develop leadership-first digital transformation capabilities,
+                  AI fluency and business-IT alignment through a part-time
+                  executive master in Antwerp.
+                </td>
+              </tr>
+              <tr>
+                <td>H1</td>
+                <td>Digital Leadership & Transformation</td>
+              </tr>
+              <tr>
+                <td>H2/H3</td>
+                <td>
+                  Digital transformation leadership, AI for business leaders,
+                  transformation governance, ROI measurement, peer learning,
+                  flexible part-time format.
+                </td>
+              </tr>
+              <tr>
+                <td>Landing sections</td>
+                <td>
+                  For non-technical executives, roadmap outcomes, business case
+                  and ROI, governance, alumni application stories, admission and
+                  funding.
+                </td>
+              </tr>
+            </table>
+          </div>
+        </section>
 
-    // Initialize chart
-    if (DATA.compKeywords.length > 0) {
-      new Chart(document.getElementById('visitsChart'), {
-        type: 'bar',
+        <section id="plan" class="tab space-y-6">
+          <h2 class="text-3xl font-extrabold">Action Plan</h2>
+          <div class="grid md:grid-cols-2 gap-4">
+            <div class="bg-white p-5 rounded-2xl shadow">
+              <h3 class="font-bold">At-risk Keywords</h3>
+              <div id="riskList" class="mt-3 text-sm"></div>
+            </div>
+            <div class="bg-white p-5 rounded-2xl shadow">
+              <h3 class="font-bold">Keyword Gaps</h3>
+              <div id="gapList" class="mt-3 text-sm"></div>
+            </div>
+          </div>
+          <div class="bg-white p-5 rounded-2xl shadow">
+            <h3 class="font-bold">AI Prompt Optimization</h3>
+            <div id="promptList" class="mt-3 text-sm"></div>
+          </div>
+          <div class="bg-white p-5 rounded-2xl shadow">
+            <h3 class="font-bold">Content Gaps</h3>
+            <p class="text-sm mt-2">
+              Create pages or sections for: Digital leadership for non-technical
+              executives; AI transformation roadmap; why transformation fails;
+              business case for digital transformation; leadership alignment
+              around AI; digital leadership readiness scorecard.
+            </p>
+          </div>
+        </section>
+      </main>
+    </div>
+    <script>
+      const DATA = {
+        position: [
+          {
+            No: 1,
+            Position: "1",
+            Keyword: "executive master",
+            Change: "0",
+            SD: 28,
+            "Search Volume": 170,
+            URL: "https://www.antwerpmanagementschool.be/nl/programma/executive-mba",
+            Location: "Dutch / Belgium",
+          },
+          {
+            No: 2,
+            Position: "2",
+            Keyword: "master in finance",
+            Change: "-1",
+            SD: 44,
+            "Search Volume": 210,
+            URL: "https://www.antwerpmanagementschool.be/en/program/master-finance-investments",
+            Location: "Dutch / Belgium",
+          },
+          {
+            No: 3,
+            Position: "2",
+            Keyword: "master human resources",
+            Change: "6",
+            SD: 30,
+            "Search Volume": 260,
+            URL: "https://www.antwerpmanagementschool.be/en/program/human-resources",
+            Location: "Dutch / Belgium",
+          },
+          {
+            No: 4,
+            Position: "2",
+            Keyword: "executive mba",
+            Change: "0",
+            SD: 47,
+            "Search Volume": 140,
+            URL: "https://www.antwerpmanagementschool.be/en/program/executive-mba",
+            Location: "Dutch / Belgium",
+          },
+          {
+            No: 5,
+            Position: "4",
+            Keyword: "master degree management",
+            Change: "6",
+            SD: 37,
+            "Search Volume": 260,
+            URL: "https://www.antwerpmanagementschool.be/en/program/master-management",
+            Location: "Dutch / Belgium",
+          },
+          {
+            No: 6,
+            Position: "4",
+            Keyword: "business schools in belgium",
+            Change: "2",
+            SD: 32,
+            "Search Volume": 110,
+            URL: "https://www.antwerpmanagementschool.be/en",
+            Location: "Dutch / Belgium",
+          },
+          {
+            No: 7,
+            Position: "4",
+            Keyword: "master class",
+            Change: "5",
+            SD: 41,
+            "Search Volume": 210,
+            URL: "https://www.antwerpmanagementschool.be/nl/programma/master-class-leiderschap-in-onderwijs",
+            Location: "Dutch / Belgium",
+          },
+          {
+            No: 8,
+            Position: "4",
+            Keyword: "management opleiding",
+            Change: "0",
+            SD: 15,
+            "Search Volume": 390,
+            URL: "https://www.antwerpmanagementschool.be/nl/programma/opleidingen-voor-ervaren-professionals",
+            Location: "Dutch / Belgium",
+          },
+          {
+            No: 9,
+            Position: "4",
+            Keyword: "mba",
+            Change: "1",
+            SD: 44,
+            "Search Volume": 2400,
+            URL: "https://www.antwerpmanagementschool.be/nl/programma/executive-mba",
+            Location: "Dutch / Belgium",
+          },
+          {
+            No: 10,
+            Position: "4",
+            Keyword: "business school",
+            Change: "0",
+            SD: 61,
+            "Search Volume": 590,
+            URL: "https://www.antwerpmanagementschool.be/nl",
+            Location: "Dutch / Belgium",
+          },
+          {
+            No: 11,
+            Position: "4",
+            Keyword: "hr masters",
+            Change: "2",
+            SD: 20,
+            "Search Volume": 260,
+            URL: "https://www.antwerpmanagementschool.be/nl/programma/human-resources",
+            Location: "Dutch / Belgium",
+          },
+          {
+            No: 12,
+            Position: "5",
+            Keyword: "master cybersecurity",
+            Change: "0",
+            SD: 31,
+            "Search Volume": 260,
+            URL: "https://www.antwerpmanagementschool.be/nl/programma/master-class-cyber-security-management",
+            Location: "Dutch / Belgium",
+          },
+          {
+            No: 13,
+            Position: "5",
+            Keyword: "opleiding change management",
+            Change: "-2",
+            SD: 10,
+            "Search Volume": 320,
+            URL: "https://www.antwerpmanagementschool.be/nl/programma/changemanagement",
+            Location: "Dutch / Belgium",
+          },
+          {
+            No: 14,
+            Position: "5",
+            Keyword: "change management opleiding",
+            Change: "-2",
+            SD: 12,
+            "Search Volume": 320,
+            URL: "https://www.antwerpmanagementschool.be/nl/programma/changemanagement",
+            Location: "Dutch / Belgium",
+          },
+          {
+            No: 15,
+            Position: "5",
+            Keyword: "master of business administration mba",
+            Change: "0",
+            SD: 39,
+            "Search Volume": 320,
+            URL: "https://www.antwerpmanagementschool.be/en/program/executive-mba",
+            Location: "Dutch / Belgium",
+          },
+          {
+            No: 16,
+            Position: "6",
+            Keyword: "masters business administration",
+            Change: "-1",
+            SD: 47,
+            "Search Volume": 2400,
+            URL: "https://www.antwerpmanagementschool.be/en/program/executive-mba",
+            Location: "Dutch / Belgium",
+          },
+          {
+            No: 17,
+            Position: "8",
+            Keyword: "opleiding manager",
+            Change: "-1",
+            SD: 22,
+            "Search Volume": 390,
+            URL: "https://www.antwerpmanagementschool.be/nl/programma/opleidingen-voor-ervaren-professionals",
+            Location: "Dutch / Belgium",
+          },
+          {
+            No: 18,
+            Position: "12",
+            Keyword: "master of business administration",
+            Change: "-7",
+            SD: 36,
+            "Search Volume": 320,
+            URL: "https://www.antwerpmanagementschool.be/en/program/executive-mba",
+            Location: "Dutch / Belgium",
+          },
+          {
+            No: 19,
+            Position: "24",
+            Keyword: "masterclass",
+            Change: "-10",
+            SD: 44,
+            "Search Volume": 1900,
+            URL: "https://www.antwerpmanagementschool.be/nl/programma/masterclass-mens-en-organisatie",
+            Location: "Dutch / Belgium",
+          },
+          {
+            No: 20,
+            Position: "34",
+            Keyword: "scholarship",
+            Change: "-8",
+            SD: 67,
+            "Search Volume": 1600,
+            URL: "https://www.antwerpmanagementschool.be/en/scholarships-ua",
+            Location: "Dutch / Belgium",
+          },
+          {
+            No: 21,
+            Position: "61",
+            Keyword: "human resources",
+            Change: "2",
+            SD: 38,
+            "Search Volume": 1900,
+            URL: "https://www.antwerpmanagementschool.be/en/insights?topic=human-resources",
+            Location: "Dutch / Belgium",
+          },
+          {
+            No: 22,
+            Position: "Not ranked",
+            Keyword: "antwerp university",
+            Change: "-",
+            SD: 44,
+            "Search Volume": 880,
+            URL: "114",
+            Location: "Dutch / Belgium",
+          },
+          {
+            No: 23,
+            Position: "Not ranked",
+            Keyword: "inzichten",
+            Change: "-",
+            SD: 35,
+            "Search Volume": 1900,
+            URL: "114",
+            Location: "Dutch / Belgium",
+          },
+          {
+            No: 24,
+            Position: "Not ranked",
+            Keyword: "hrm",
+            Change: "-",
+            SD: 29,
+            "Search Volume": 1300,
+            URL: "114",
+            Location: "Dutch / Belgium",
+          },
+          {
+            No: 25,
+            Position: "Not ranked",
+            Keyword: "maritime",
+            Change: "-",
+            SD: 41,
+            "Search Volume": 1000,
+            URL: "114",
+            Location: "Dutch / Belgium",
+          },
+        ],
+        topPages: [
+          {
+            Title: "Digital transformation – Digital with a Purpose",
+            URL: "http://www.vlerick.com/nl/digital-transformation/",
+            "Est. Visits": 30,
+            Backlinks: 0,
+          },
+          {
+            Title: "Leading Digital Transformation",
+            URL: "http://www.vlerick.com/nl/opleidingen/opleidingen-in-digitale-transformatie-en-ai/leading-digital-transformation/",
+            "Est. Visits": 22,
+            Backlinks: 1,
+          },
+          {
+            Title: "Digital Strategy and AI",
+            URL: "http://www.vlerick.com/en/programmes/programmes-in-digital-transformation-and-ai/digital-strategy-and-ai/",
+            "Est. Visits": 14,
+            Backlinks: 19,
+          },
+          {
+            Title: "Masters in Business Analytics & AI",
+            URL: "http://www.vlerick.com/nl/opleidingen/masters-opleidingen/masters-in-business-analytics-ai/",
+            "Est. Visits": 10,
+            Backlinks: 1,
+          },
+          {
+            Title: "AI For Business",
+            URL: "http://www.vlerick.com/nl/opleidingen/opleidingen-in-digitale-transformatie-en-ai/ai-for-business/",
+            "Est. Visits": 2,
+            Backlinks: 0,
+          },
+          {
+            Title: "Programmes in Digital Transformation and AI",
+            URL: "http://www.vlerick.com/en/programmes/programmes-in-digital-transformation-and-ai/",
+            "Est. Visits": 2,
+            Backlinks: 1,
+          },
+        ],
+        compKeywords: [
+          {
+            Keywords: "opleidingen voor ondernemers",
+            Volume: 170,
+            Position: 1,
+            "Est. Visits": 89,
+            "SEO Difficulty": 31,
+            "Ranking URL":
+              "http://vlerick.com/nl/opleidingen/opleidingen-in-ondernemerschap/",
+          },
+          {
+            Keywords: "opleiding leiderschap",
+            Volume: 170,
+            Position: 1,
+            "Est. Visits": 82,
+            "SEO Difficulty": 13,
+            "Ranking URL":
+              "http://vlerick.com/nl/opleidingen/opleidingen-in-people-management-leiderschap/",
+          },
+          {
+            Keywords: "leadership training",
+            Volume: 140,
+            Position: 1,
+            "Est. Visits": 62,
+            "SEO Difficulty": 34,
+            "Ranking URL":
+              "http://vlerick.com/en/programmes/programmes-in-people-management-leadership/",
+          },
+          {
+            Keywords: "opleidingen leiderschap",
+            Volume: 140,
+            Position: 1,
+            "Est. Visits": 61,
+            "SEO Difficulty": 36,
+            "Ranking URL":
+              "http://vlerick.com/nl/opleidingen/opleidingen-in-people-management-leiderschap/",
+          },
+          {
+            Keywords: "take the lead ai",
+            Volume: 90,
+            Position: 1,
+            "Est. Visits": 28,
+            "SEO Difficulty": 29,
+            "Ranking URL":
+              "http://vlerick.com/en/programmes/programmes-in-digital-transformation-and-ai/take-the-lead-in-ai/",
+          },
+          {
+            Keywords: "leadership training belgium",
+            Volume: 70,
+            Position: 3,
+            "Est. Visits": 8,
+            "SEO Difficulty": 14,
+            "Ranking URL":
+              "http://vlerick.com/en/programmes/programmes-in-people-management-leadership/",
+          },
+          {
+            Keywords: "take the lead",
+            Volume: 390,
+            Position: 5,
+            "Est. Visits": 7,
+            "SEO Difficulty": 30,
+            "Ranking URL":
+              "http://vlerick.com/nl/opleidingen/take-the-lead-in-a/",
+          },
+          {
+            Keywords: "master ai",
+            Volume: 210,
+            Position: 5,
+            "Est. Visits": 6,
+            "SEO Difficulty": 57,
+            "Ranking URL":
+              "http://vlerick.com/nl/opleidingen/masters-opleidingen/masters-in-business-analytics-ai/",
+          },
+        ],
+        suggestions: [
+          {
+            Keyword: "digital transformation supply chain",
+            "Search Volume": 20,
+            CPC: 0,
+            "SEO Difficulty": 15,
+          },
+          {
+            Keyword: "digital transformation in hr",
+            "Search Volume": 20,
+            CPC: 0,
+            "SEO Difficulty": 15,
+          },
+          {
+            Keyword:
+              "digital transformation and the new logics of business process management",
+            "Search Volume": 10,
+            CPC: 0,
+            "SEO Difficulty": 5,
+          },
+          {
+            Keyword: "digital transformation and ai",
+            "Search Volume": 10,
+            CPC: 0,
+            "SEO Difficulty": 21,
+          },
+          {
+            Keyword: "digital transformation business",
+            "Search Volume": 10,
+            CPC: 0,
+            "SEO Difficulty": 23,
+          },
+          {
+            Keyword: "digital transformation experts",
+            "Search Volume": 10,
+            CPC: 0,
+            "SEO Difficulty": 13,
+          },
+          {
+            Keyword: "digital transformation governance",
+            "Search Volume": 10,
+            CPC: 0,
+            "SEO Difficulty": 13,
+          },
+          {
+            Keyword: "digital transformation in the public sector",
+            "Search Volume": 10,
+            CPC: 0,
+            "SEO Difficulty": 5,
+          },
+          {
+            Keyword: "digital transformation public sector",
+            "Search Volume": 10,
+            CPC: 0,
+            "SEO Difficulty": 36,
+          },
+          {
+            Keyword: "digital transformation workshop",
+            "Search Volume": 10,
+            CPC: 0,
+            "SEO Difficulty": 44,
+          },
+        ],
+        aiPrompts: [
+          "Hoe kan ik een digitale transformatie strategie implementeren in mijn KMO?",
+          "Waar vind ik consultants gespecialiseerd in digitale transformatie in België?",
+          "Succesverhalen van digitale transformatie in de retailsector.",
+          "Hoe kan ik de ROI meten van een digitale transformatie investering?",
+          "Bestaan er lokale events of seminars over digitale transformatie?",
+          "Welke training of opleidingen zijn er voor digitale transformatie in België?",
+        ],
+      };
+      const clusters = [
+        {
+          name: "Career Advancement",
+          kws: [
+            "digital leadership masterclass",
+            "executive master",
+            "career boost",
+            "leadership training",
+          ],
+          action:
+            "Show how the programme builds strategic credibility and future-ready leadership.",
+        },
+        {
+          name: "Flexible Learning Formats",
+          kws: [
+            "part-time executive master",
+            "digital transformation workshop",
+            "online or on campus",
+          ],
+          action:
+            "Reduce time objections with concise format, application rhythm and funding/admission clarity.",
+        },
+        {
+          name: "Global Exposure",
+          kws: [
+            "business school",
+            "peer learning",
+            "international alumni network",
+          ],
+          action:
+            "Emphasize cohort diversity, peer learning and international business perspectives where supported.",
+        },
+        {
+          name: "ROI and Salary",
+          kws: [
+            "digital transformation ROI",
+            "business case",
+            "measurable business impact",
+          ],
+          action:
+            "Add a downloadable business-case template and ROI measurement content.",
+        },
+      ];
+      function table(rows, cols) {
+        return `<table class="w-full"><tr>${cols.map((c) => `<th>${c}</th>`).join("")}</tr>${rows.map((r) => `<tr>${cols.map((c) => `<td>${r[c] ?? ""}</td>`).join("")}</tr>`).join("")}</table>`;
+      }
+      function changeBadge(v) {
+        const n = parseInt(v);
+        if (isNaN(n)) return '<span class="badge bg-slate-100">Gap</span>';
+        if (n < 0)
+          return `<span class="badge bg-red-100 text-red-700">${v}</span>`;
+        if (n > 0)
+          return `<span class="badge bg-green-100 text-green-700">+${v}</span>`;
+        return `<span class="badge bg-slate-100">0</span>`;
+      }
+      document.getElementById("topPagesTable").innerHTML = table(
+        DATA.topPages,
+        ["Title", "Est. Visits", "Backlinks", "URL"],
+      );
+      document.getElementById("compTable").innerHTML = table(
+        DATA.compKeywords,
+        ["Keywords", "Volume", "Position", "Est. Visits", "SEO Difficulty"],
+      );
+      document.getElementById("posTable").innerHTML =
+        '<table class="w-full"><tr><th>Keyword</th><th>Position</th><th>Change</th><th>Volume</th></tr>' +
+        DATA.position
+          .map(
+            (r) =>
+              `<tr><td>${r.Keyword}</td><td>${r.Position}</td><td>${changeBadge(r.Change)}</td><td>${r["Search Volume"]}</td></tr>`,
+          )
+          .join("") +
+        "</table>";
+      document.getElementById("clusters").innerHTML = clusters
+        .map(
+          (c) =>
+            `<div class="bg-white p-5 rounded-2xl shadow"><h3 class="font-bold text-lg">${c.name}</h3><p class="text-sm mt-2 text-slate-600">${c.action}</p><div class="mt-3 flex flex-wrap gap-2">${c.kws.map((k) => `<span class="badge bg-blue-50 text-blue-700">${k}</span>`).join("")}</div></div>`,
+        )
+        .join("");
+      document.getElementById("riskList").innerHTML = DATA.position
+        .filter((r) => parseInt(r.Change) < 0)
+        .map(
+          (r) =>
+            `<p class="mb-2"><b>${r.Keyword}</b>: ${r.Change} positions, volume ${r["Search Volume"]}</p>`,
+        )
+        .join("");
+      document.getElementById("gapList").innerHTML = [
+        ...DATA.compKeywords.map((x) => x.Keywords),
+        ...DATA.suggestions
+          .filter((x) => x["SEO Difficulty"] <= 21)
+          .map((x) => x.Keyword),
+      ]
+        .map(
+          (k) =>
+            `<span class="badge bg-blue-50 text-blue-700 mr-2 mb-2 inline-block">${k}</span>`,
+        )
+        .join("");
+      document.getElementById("promptList").innerHTML = DATA.aiPrompts
+        .map((p) => `<p class="mb-2">• ${p}</p>`)
+        .join("");
+      new Chart(document.getElementById("visitsChart"), {
+        type: "bar",
         data: {
-          labels: DATA.compKeywords.map(x => x.Keywords),
-          datasets: [{
-            label: 'Est. Visits',
-            data: DATA.compKeywords.map(x => x["Est. Visits"]),
-            backgroundColor: '#2563eb',
-            borderRadius: 4
-          }]
+          labels: DATA.compKeywords.map((x) => x.Keywords),
+          datasets: [
+            {
+              label: "Est. Visits",
+              data: DATA.compKeywords.map((x) => x["Est. Visits"]),
+            },
+          ],
         },
         options: {
-          responsive: true,
-          maintainAspectRatio: true,
-          plugins: {
-            legend: {
-              display: true,
-              position: 'top'
-            }
-          },
+          plugins: { legend: { display: false } },
           scales: {
-            y: {
-              beginAtZero: true
-            }
-          }
-        }
+            x: { ticks: { autoSkip: false, maxRotation: 45, minRotation: 45 } },
+          },
+        },
       });
-    }
-
-    // Tab activation
-    function activate(id) {
-      if (id === 'home') {
-        window.location.href = 'https://www.antwerpmanagementschool.be/en/program/executive-master-digital-leadership-and-transformation';
-        return;
+      function activate(id) {
+        document
+          .querySelectorAll(".tab")
+          .forEach((t) => t.classList.toggle("active", t.id === id));
+        document
+          .querySelectorAll(".nav")
+          .forEach((n) => n.classList.toggle("active", n.dataset.tab === id));
+        document.getElementById("mobileNav").value = id;
       }
-      document.querySelectorAll('.tab').forEach(t => t.classList.toggle('active', t.id === id));
-      document.querySelectorAll('.nav').forEach(n => n.classList.toggle('active', n.dataset.tab === id));
-    }
-
-    // Event listeners
-    document.querySelectorAll('.nav').forEach(n => n.onclick = () => activate(n.dataset.tab));
-    document.getElementById('mobileNav').onchange = e => activate(e.target.value);
-  </script>
-</body>
+      document
+        .querySelectorAll(".nav")
+        .forEach((n) => (n.onclick = () => activate(n.dataset.tab)));
+      document.getElementById("mobileNav").onchange = (e) =>
+        activate(e.target.value);
+    </script>
+  </body>
 </html>
