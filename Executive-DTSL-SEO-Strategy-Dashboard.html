@@ -44,6 +44,9 @@
         <p class="text-sm text-slate-600 mt-1">Antwerp Management School</p>
       </div>
       <nav class="px-3 space-y-1">
+        <a href="https://www.antwerpmanagementschool.be/en/program/executive-master-digital-leadership-and-transformation" class="block w-full text-left px-4 py-3 rounded-lg hover:bg-slate-100 text-slate-600 hover:text-slate-900">
+          🏠 Home
+        </a>
         <button class="nav active w-full text-left px-4 py-3 rounded-lg hover:bg-slate-100" data-tab="summary">
           Executive Summary
         </button>
@@ -70,6 +73,7 @@
       <!-- Mobile Navigation -->
       <div class="md:hidden mb-4">
         <select id="mobileNav" class="w-full p-3 rounded-xl border border-slate-300">
+          <option value="home">🏠 Home</option>
           <option value="summary">Executive Summary</option>
           <option value="keywords">Keyword Data</option>
           <option value="strategy">Content Strategy</option>
@@ -82,7 +86,7 @@
         <div>
           <h2 class="text-3xl font-extrabold">Executive Summary</h2>
           <p class="text-slate-600 mt-2">
-            Audience: Senior Executives and Mid-career Professionals seeking practical digital leadership, AI fluency, and transformation governance. Search intent is primarily commercial consideration around executive master programs.
+            Audience: Senior Executives and Mid-career Professionals seeking practical digital leadership, AI fluency, and transformation governance. Search intent is primarily commercial consider[...]
           </p>
         </div>
 
@@ -90,7 +94,7 @@
           <div class="bg-white p-5 rounded-2xl shadow">
             <h3 class="font-bold">Primary Challenge</h3>
             <p class="text-sm mt-2">
-              AMS has a strong degree-led proposition, but competitor keyword visibility clusters around leadership training and digital transformation. Opportunity exists to dominate non-technical executive messaging.
+              AMS has a strong degree-led proposition, but competitor keyword visibility clusters around leadership training and digital transformation. Opportunity exists to dominate non-technica[...]
             </p>
           </div>
           <div class="bg-white p-5 rounded-2xl shadow">
@@ -135,11 +139,11 @@
               </tr>
               <tr class="border-b">
                 <td class="py-2 px-2 font-semibold">Identified keyword gaps</td>
-                <td class="py-2 px-2" colspan="2">AMS is not visibly targeting leadership training, leadership training Belgium, take the lead AI, digital transformation workshop, governance and security, business case and ROI</td>
+                <td class="py-2 px-2" colspan="2">AMS is not visibly targeting leadership training, leadership training Belgium, take the lead AI, digital transformation workshop, governance and [...]
               </tr>
               <tr>
                 <td class="py-2 px-2 font-semibold">Differentiation opportunities</td>
-                <td class="py-2 px-2" colspan="2">Use "leadership-first, not coding" messaging; build content around transformation roadmap, ROI measurement, governance, and non-technical executive narratives</td>
+                <td class="py-2 px-2" colspan="2">Use "leadership-first, not coding" messaging; build content around transformation roadmap, ROI measurement, governance, and non-technical executi[...]
               </tr>
             </tbody>
           </table>
@@ -175,7 +179,7 @@
         <div class="bg-white p-5 rounded-2xl shadow">
           <h3 class="font-bold mb-3">Google Trends / AI Trend Angles</h3>
           <p class="text-sm text-slate-600">
-            Prioritize AI agents, multimodal AI, enterprise search, workforce transformation, and governance. Create content bridging traditional digital transformation with AI leadership narratives.
+            Prioritize AI agents, multimodal AI, enterprise search, workforce transformation, and governance. Create content bridging traditional digital transformation with AI leadership narrati[...]
           </p>
         </div>
       </section>
@@ -248,7 +252,7 @@
         <div class="bg-white p-5 rounded-2xl shadow">
           <h3 class="font-bold">Content Gaps</h3>
           <p class="text-sm mt-2">
-            Create pages or sections for: Digital leadership for non-technical executives; AI transformation roadmap for business leaders; Governance and risk in digital transformation; ROI measurement framework; Competitive analysis vs. Vlerick and INSEAD; Leadership community/peer learning emphasis.
+            Create pages or sections for: Digital leadership for non-technical executives; AI transformation roadmap for business leaders; Governance and risk in digital transformation; ROI measu[...]
           </p>
         </div>
       </section>
@@ -332,8 +336,8 @@
     document.getElementById('topPagesTable').innerHTML = table(DATA.topPages, ["Title", "Est. Visits", "Backlinks", "URL"]);
     document.getElementById('compTable').innerHTML = table(DATA.compKeywords, ["Keywords", "Volume", "Position", "Est. Visits", "SEO Difficulty"]);
     
-    document.getElementById('posTable').innerHTML = '<table class="w-full text-sm border-collapse"><thead><tr class="border-b"><th class="text-left py-2 px-2 font-semibold">Keyword</th><th class="text-left py-2 px-2 font-semibold">Position</th><th class="text-left py-2 px-2 font-semibold">Change</th><th class="text-left py-2 px-2 font-semibold">Volume</th></tr></thead><tbody>' +
-      DATA.position.map(r => `<tr class="border-b"><td class="py-2 px-2">${r.Keyword}</td><td class="py-2 px-2">${r.Position}</td><td class="py-2 px-2">${changeBadge(r.Change)}</td><td class="py-2 px-2">${r["Search Volume"]}</td></tr>`).join('') +
+    document.getElementById('posTable').innerHTML = '<table class="w-full text-sm border-collapse"><thead><tr class="border-b"><th class="text-left py-2 px-2 font-semibold">Keyword</th><th class=[...]
+      DATA.position.map(r => `<tr class="border-b"><td class="py-2 px-2">${r.Keyword}</td><td class="py-2 px-2">${r.Position}</td><td class="py-2 px-2">${changeBadge(r.Change)}</td><td class="py-[...]
       '</tbody></table>';
 
     document.getElementById('clusters').innerHTML = clusters.map(c => 
@@ -393,6 +397,10 @@
 
     // Tab activation
     function activate(id) {
+      if (id === 'home') {
+        window.location.href = 'https://www.antwerpmanagementschool.be/en/program/executive-master-digital-leadership-and-transformation';
+        return;
+      }
       document.querySelectorAll('.tab').forEach(t => t.classList.toggle('active', t.id === id));
       document.querySelectorAll('.nav').forEach(n => n.classList.toggle('active', n.dataset.tab === id));
     }
